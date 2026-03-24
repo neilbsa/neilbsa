@@ -1,653 +1,2729 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>12-Week Body Recomposition Program</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0d0d0d;
-    --surface: #151515;
-    --surface2: #1c1c1c;
-    --border: #2a2a2a;
-    --accent: #c8a96e;
-    --accent2: #8b1a1a;
-    --accent3: #4a7c59;
-    --text: #e8e0d0;
-    --muted: #7a7060;
-    --push: #c0522a;
-    --pull: #2a6cb0;
-    --legs: #4a7c59;
-    --rest: #555;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.7; }
-  .hero { background: linear-gradient(135deg, #0d0d0d 0%, #1a0a0a 50%, #0d0d0d 100%); border-bottom: 1px solid var(--border); padding: 60px 40px 50px; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(200,169,110,0.08) 0%, transparent 70%); }
-  .hero-tag { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; margin-bottom: 14px; }
-  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 8vw, 96px); letter-spacing: 2px; line-height: 0.9; color: var(--text); }
-  .hero h1 span { color: var(--accent); }
-  .hero-sub { margin-top: 20px; color: var(--muted); max-width: 560px; font-size: 14px; }
-  .hero-stats { display: flex; gap: 32px; margin-top: 32px; flex-wrap: wrap; }
-  .stat { display: flex; flex-direction: column; }
-  .stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--accent); line-height: 1; }
-  .stat-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-  .section { padding: 56px 0; border-bottom: 1px solid var(--border); }
-  .section:last-child { border-bottom: none; }
-  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 36px; }
-  .section-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 2px; }
-  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: 1px; color: var(--text); }
-  .week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
-  .day-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 14px 10px; text-align: center; }
-  .day-card.push { border-top: 3px solid var(--push); }
-  .day-card.pull { border-top: 3px solid var(--pull); }
-  .day-card.legs { border-top: 3px solid var(--legs); }
-  .day-card.rest { border-top: 3px solid var(--rest); opacity: 0.7; }
-  .day-name { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
-  .day-type { font-family: 'Bebas Neue', sans-serif; font-size: 20px; line-height: 1.1; }
-  .day-card.push .day-type { color: var(--push); }
-  .day-card.pull .day-type { color: var(--pull); }
-  .day-card.legs .day-type { color: var(--legs); }
-  .day-card.rest .day-type { color: var(--muted); }
-  .day-focus { font-size: 10px; color: var(--muted); margin-top: 4px; line-height: 1.3; }
-  .workout-section { margin-bottom: 48px; }
-  .workout-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
-  .workout-badge { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 2px; padding: 4px 12px; border-radius: 3px; }
-  .badge-push { background: var(--push); color: #fff; }
-  .badge-pull { background: var(--pull); color: #fff; }
-  .badge-legs { background: var(--legs); color: #fff; }
-  .workout-title { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--text); }
-  .exercise-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-  .exercise-table thead th { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); text-align: left; padding: 10px 12px; background: var(--surface2); border-bottom: 1px solid var(--border); }
-  .exercise-table tbody tr { border-bottom: 1px solid var(--border); }
-  .exercise-table tbody tr:hover { background: var(--surface2); }
-  .exercise-table td { padding: 11px 12px; vertical-align: top; color: var(--text); }
-  .ex-name { font-weight: 500; color: var(--accent); }
-  .ex-note { font-size: 12px; color: var(--muted); margin-top: 2px; }
-  .ex-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; text-decoration: none; background: rgba(255,0,0,0.1); border: 1px solid rgba(255,60,60,0.25); color: #ff6b6b; border-radius: 3px; padding: 2px 8px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; transition: background 0.15s, border-color 0.15s; }
-  .ex-link:hover { background: rgba(255,0,0,0.22); border-color: rgba(255,60,60,0.5); color: #ff9999; }
-  .ex-link svg { flex-shrink: 0; }
-  .rpe-chip { display: inline-block; background: rgba(200,169,110,0.12); color: var(--accent); border: 1px solid rgba(200,169,110,0.25); border-radius: 3px; padding: 1px 7px; font-family: 'DM Mono', monospace; font-size: 11px; }
-  .compound-row td:first-child { border-left: 2px solid var(--accent2); }
-  .phase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .phase-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 22px; }
-  .phase-card:nth-child(1) { border-top: 3px solid #3a7a5a; }
-  .phase-card:nth-child(2) { border-top: 3px solid var(--accent); }
-  .phase-card:nth-child(3) { border-top: 3px solid var(--accent2); }
-  .phase-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
-  .phase-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--text); margin-bottom: 12px; }
-  .phase-weeks { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--accent); margin-bottom: 14px; }
-  .phase-list { list-style: none; }
-  .phase-list li { font-size: 13px; color: var(--muted); padding: 4px 0; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 8px; }
-  .phase-list li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
-  .macro-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
-  .macro-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; text-align: center; }
-  .macro-val { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--accent); line-height: 1; }
-  .macro-unit { font-size: 14px; color: var(--muted); }
-  .macro-name { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-top: 8px; }
-  .macro-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
-  .meal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  .meal-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px; }
-  .meal-num { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
-  .meal-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--text); margin-bottom: 10px; }
-  .meal-items { list-style: none; }
-  .meal-items li { font-size: 13px; color: var(--muted); padding: 3px 0; border-bottom: 1px solid var(--border); }
-  .meal-items li:last-child { border-bottom: none; }
-  .meal-cals { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); margin-top: 10px; }
-  .transition-steps { counter-reset: step; }
-  .t-step { display: flex; gap: 20px; margin-bottom: 20px; }
-  .t-step-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--border); line-height: 1; flex-shrink: 0; width: 40px; }
-  .t-step-title { font-weight: 700; color: var(--accent); margin-bottom: 4px; }
-  .t-step-text { font-size: 13.5px; color: var(--muted); }
-  .rec-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .rec-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 22px; }
-  .rec-icon { font-size: 24px; margin-bottom: 10px; }
-  .rec-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--text); margin-bottom: 10px; }
-  .rec-list { list-style: none; }
-  .rec-list li { font-size: 13px; color: var(--muted); padding: 4px 0; border-bottom: 1px solid var(--border); display: flex; gap: 8px; }
-  .rec-list li:last-child { border-bottom: none; }
-  .rec-list li::before { content: '·'; color: var(--accent); }
-  .rotation-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
-  .rot-day { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 12px 8px; text-align: center; }
-  .rot-day-name { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
-  .rot-item { font-size: 12px; color: var(--muted); padding: 3px 0; border-bottom: 1px solid var(--border); line-height: 1.3; }
-  .rot-item:last-child { border-bottom: none; }
-  .callout { background: rgba(200,169,110,0.07); border: 1px solid rgba(200,169,110,0.2); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; padding: 14px 18px; margin: 16px 0; font-size: 13.5px; color: var(--muted); }
-  .callout strong { color: var(--accent); }
-  .deload-box { background: rgba(139,26,26,0.1); border: 1px solid rgba(139,26,26,0.3); border-radius: 8px; padding: 20px 24px; margin-top: 20px; }
-  .deload-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--accent2); margin-bottom: 8px; }
-  .warmup-block { background: var(--surface2); border-radius: 6px; padding: 14px 18px; margin-bottom: 16px; font-size: 13px; color: var(--muted); }
-  .warmup-block strong { color: var(--text); display: block; margin-bottom: 6px; }
-  .elec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
-  .elec-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 14px; }
-  .elec-name { font-weight: 600; color: var(--accent); margin-bottom: 4px; }
-  .elec-source { font-size: 12px; color: var(--muted); }
-  .progress-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .progress-table th { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-align: left; padding: 8px 12px; background: var(--surface2); border-bottom: 1px solid var(--border); }
-  .progress-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--text); }
-  .progress-table tr:hover td { background: var(--surface2); }
-  hr.divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
-  @media (max-width: 768px) {
-    .week-grid, .rotation-grid { grid-template-columns: repeat(4, 1fr); }
-    .phase-grid, .meal-grid, .macro-row { grid-template-columns: 1fr 1fr; }
-    .rec-grid, .elec-grid { grid-template-columns: 1fr; }
-    .hero { padding: 40px 20px; }
-    .container { padding: 0 16px; }
-  }
-</style>
-</head>
-<body>
-
-<div class="hero">
-  <div class="container">
-    <div class="hero-tag">// Certified Strength &amp; Nutrition Protocol</div>
-    <h1>12-WEEK<br><span>BODY RECOMP</span><br>PROGRAM</h1>
-    <p class="hero-sub">Push / Pull / Legs &middot; Carnivore Nutrition &middot; Progressive Overload &middot; Metabolic Optimization</p>
-    <div class="hero-stats">
-      <div class="stat"><span class="stat-val">34</span><span class="stat-label">Age</span></div>
-      <div class="stat"><span class="stat-val">82kg</span><span class="stat-label">Bodyweight</span></div>
-      <div class="stat"><span class="stat-val">5'5"</span><span class="stat-label">Height</span></div>
-      <div class="stat"><span class="stat-val">PPL</span><span class="stat-label">Split</span></div>
-      <div class="stat"><span class="stat-val">12</span><span class="stat-label">Weeks</span></div>
-      <div class="stat"><span class="stat-val">6x</span><span class="stat-label">Sessions/Week</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- SECTION 1 -->
-<div class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">01</span>
-      <h2 class="section-title">Weekly Training Schedule</h2>
-    </div>
-    <div class="week-grid">
-      <div class="day-card push"><div class="day-name">MON</div><div class="day-type">PUSH A</div><div class="day-focus">Chest &middot; Shoulders &middot; Triceps</div></div>
-      <div class="day-card pull"><div class="day-name">TUE</div><div class="day-type">PULL A</div><div class="day-focus">Back &middot; Biceps &middot; Rear Delts</div></div>
-      <div class="day-card legs"><div class="day-name">WED</div><div class="day-type">LEGS A</div><div class="day-focus">Quads &middot; Hamstrings &middot; Glutes &middot; Calves</div></div>
-      <div class="day-card rest"><div class="day-name">THU</div><div class="day-type">REST</div><div class="day-focus">Light cardio or full rest</div></div>
-      <div class="day-card push"><div class="day-name">FRI</div><div class="day-type">PUSH B</div><div class="day-focus">Chest &middot; Shoulders &middot; Triceps</div></div>
-      <div class="day-card pull"><div class="day-name">SAT</div><div class="day-type">PULL B</div><div class="day-focus">Back &middot; Biceps &middot; Rear Delts</div></div>
-      <div class="day-card legs"><div class="day-name">SUN</div><div class="day-type">LEGS B</div><div class="day-focus">Posterior chain or Active Recovery</div></div>
-    </div>
-    <div class="callout" style="margin-top:20px"><strong>Thursday Protocol:</strong> 20-30 min easy walk or Zone-2 cardio (60-65% max HR). This accelerates fat loss without impairing recovery. Full rest is also acceptable, especially in Weeks 1-3.</div>
-  </div>
-</div>
-
-<!-- SECTION 2 -->
-<div class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">02</span>
-      <h2 class="section-title">Detailed Workouts</h2>
-    </div>
-    <div class="warmup-block"><strong>Universal Warm-Up (10 min) - apply before every session</strong>5 min light cardio (bike or treadmill) &middot; 10 cat-cow &middot; 10 world's greatest stretch/side &middot; 10 band pull-aparts &middot; 10 hip circles/side &middot; 2 sets of compound movement with empty bar at 50% working weight</div>
-    <div class="warmup-block"><strong>Universal Cooldown (5-8 min) - apply after every session</strong>2 min walk &middot; 60 sec chest doorway stretch &middot; 60 sec lat stretch &middot; 60 sec hip flexor stretch/side &middot; 60 sec hamstring stretch &middot; Diaphragmatic breathing (5 slow breaths)</div>
-    <hr class="divider">
-
-    <!-- PUSH A -->
-    <div class="workout-section">
-      <div class="workout-header"><span class="workout-badge badge-push">PUSH A</span><span class="workout-title">Monday - Chest Primary</span></div>
-      <table class="exercise-table">
-        <thead><tr><th>#</th><th>Exercise</th><th>Sets</th><th>Reps</th><th>Rest</th><th>RPE</th><th>Technique Notes</th></tr></thead>
-        <tbody>
-          <tr class="compound-row"><td>1</td><td><div class="ex-name">Barbell Bench Press</div><div class="ex-note">Compound - Primary mover</div><a class="ex-link" href="https://www.youtube.com/watch?v=vcBig73ojpE" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>4</td><td>4-6</td><td>3 min</td><td><span class="rpe-chip">RPE 8</span></td><td>Retract scapula, feet flat, controlled descent 2 sec, drive chest through bar</td></tr>
-          <tr><td>2</td><td><div class="ex-name">Incline Dumbbell Press</div><div class="ex-note">30-45 degree incline</div><a class="ex-link" href="https://www.youtube.com/watch?v=8iPEnn-ltC8" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>8-10</td><td>2 min</td><td><span class="rpe-chip">RPE 7-8</span></td><td>Full range of motion, elbows at ~70 degrees to body, feel upper chest stretch</td></tr>
-          <tr class="compound-row"><td>3</td><td><div class="ex-name">Overhead Press (Barbell)</div><div class="ex-note">Compound - Shoulder primary</div><a class="ex-link" href="https://www.youtube.com/watch?v=2yjwXTZQDDI" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>4</td><td>6-8</td><td>2.5 min</td><td><span class="rpe-chip">RPE 8</span></td><td>Brace core, slight hip lean-back at lockout, bar travels over mid-foot</td></tr>
-          <tr><td>4</td><td><div class="ex-name">Cable Lateral Raises</div><a class="ex-link" href="https://www.youtube.com/watch?v=GOsrFXQ7y9w" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>12-15</td><td>90 sec</td><td><span class="rpe-chip">RPE 7</span></td><td>Lead with elbow, slight forward lean, stop at shoulder height - no momentum</td></tr>
-          <tr><td>5</td><td><div class="ex-name">Dips (Chest variation)</div><a class="ex-link" href="https://www.youtube.com/watch?v=2z8JmcrW-As" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>8-12</td><td>90 sec</td><td><span class="rpe-chip">RPE 7-8</span></td><td>Lean torso forward, elbows flare slightly outward for chest emphasis</td></tr>
-          <tr><td>6</td><td><div class="ex-name">Tricep Pushdown (Cable)</div><a class="ex-link" href="https://www.youtube.com/watch?v=2-LAMcpzODU" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>12-15</td><td>75 sec</td><td><span class="rpe-chip">RPE 7</span></td><td>Elbows pinned to sides, full extension at bottom, 1 sec squeeze</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- PUSH B -->
-    <div class="workout-section">
-      <div class="workout-header"><span class="workout-badge badge-push">PUSH B</span><span class="workout-title">Friday - Shoulder Primary</span></div>
-      <table class="exercise-table">
-        <thead><tr><th>#</th><th>Exercise</th><th>Sets</th><th>Reps</th><th>Rest</th><th>RPE</th><th>Technique Notes</th></tr></thead>
-        <tbody>
-          <tr class="compound-row"><td>1</td><td><div class="ex-name">Seated Dumbbell OHP</div><div class="ex-note">Compound - Shoulder primary</div><a class="ex-link" href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>4</td><td>6-8</td><td>2.5 min</td><td><span class="rpe-chip">RPE 8</span></td><td>Strict form seated, full lockout overhead, no lower back lean</td></tr>
-          <tr class="compound-row"><td>2</td><td><div class="ex-name">Incline Barbell Press</div><a class="ex-link" href="https://www.youtube.com/watch?v=DbFgADa2PL8" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>4</td><td>6-8</td><td>2.5 min</td><td><span class="rpe-chip">RPE 7-8</span></td><td>45 degree bench angle targets upper chest, full touch at bottom</td></tr>
-          <tr><td>3</td><td><div class="ex-name">Machine Chest Fly</div><a class="ex-link" href="https://www.youtube.com/watch?v=eGo4IYlbE5g" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>12-15</td><td>90 sec</td><td><span class="rpe-chip">RPE 7</span></td><td>Stretch position at end range, controlled return, no momentum</td></tr>
-          <tr><td>4</td><td><div class="ex-name">Arnold Press</div><a class="ex-link" href="https://www.youtube.com/watch?v=6Z15_WdXmVw" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>10-12</td><td>90 sec</td><td><span class="rpe-chip">RPE 7</span></td><td>Rotate palms forward as pressing up, full rotation of the shoulder joint</td></tr>
-          <tr><td>5</td><td><div class="ex-name">Skull Crushers (EZ Bar)</div><a class="ex-link" href="https://www.youtube.com/watch?v=d_KZxkY_0cM" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>10-12</td><td>90 sec</td><td><span class="rpe-chip">RPE 7</span></td><td>Lower to forehead or behind head, keep elbows stationary</td></tr>
-          <tr><td>6</td><td><div class="ex-name">Overhead Tricep Extension (Cable)</div><a class="ex-link" href="https://www.youtube.com/watch?v=_gsUck-7M74" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>12-15</td><td>75 sec</td><td><span class="rpe-chip">RPE 7</span></td><td>Long head stretch emphasis, elbows point up, full extension</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- PULL A -->
-    <div class="workout-section">
-      <div class="workout-header"><span class="workout-badge badge-pull">PULL A</span><span class="workout-title">Tuesday - Vertical Pull + Deadlift</span></div>
-      <table class="exercise-table">
-        <thead><tr><th>#</th><th>Exercise</th><th>Sets</th><th>Reps</th><th>Rest</th><th>RPE</th><th>Technique Notes</th></tr></thead>
-        <tbody>
-          <tr class="compound-row"><td>1</td><td><div class="ex-name">Barbell Deadlift</div><div class="ex-note">Compound - Full posterior chain</div><a class="ex-link" href="https://www.youtube.com/watch?v=op9kVnSso6Q" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>4</td><td>3-5</td><td>3-4 min</td><td><span class="rpe-chip">RPE 8-9</span></td><td>Hip hinge, neutral spine throughout, bar over mid-foot, drive floor away on ascent</td></tr>
-          <tr class="compound-row"><td>2</td><td><div class="ex-name">Weighted Pull-Ups</div><a class="ex-link" href="https://www.youtube.com/watch?v=poFCDqAKH8k" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>4</td><td>5-8</td><td>3 min</td><td><span class="rpe-chip">RPE 8</span></td><td>Full hang at bottom, depress scapula first, chin clears bar, controlled descent</td></tr>
-          <tr><td>3</td><td><div class="ex-name">Chest-Supported Row (DB or Machine)</div><a class="ex-link" href="https://www.youtube.com/watch?v=xQNrFHEMhI4" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>10-12</td><td>2 min</td><td><span class="rpe-chip">RPE 7</span></td><td>Chest on pad eliminates lower back load, drive elbows back and squeeze</td></tr>
-          <tr><td>4</td><td><div class="ex-name">Face Pulls (Cable)</div><a class="ex-link" href="https://www.youtube.com/watch?v=rep-qVOkqgk" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>15-20</td><td>75 sec</td><td><span class="rpe-chip">RPE 6</span></td><td>Elbows high, external rotation at finish, shoulder health priority exercise</td></tr>
-          <tr><td>5</td><td><div class="ex-name">Barbell Curl</div><a class="ex-link" href="https://www.youtube.com/watch?v=kwG2ipFRgfo" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>8-10</td><td>90 sec</td><td><span class="rpe-chip">RPE 7-8</span></td><td>Elbows pinned to sides, supinate fully at top, 2 sec eccentric</td></tr>
-          <tr><td>6</td><td><div class="ex-name">Hammer Curls (Dumbbell)</div><a class="ex-link" href="https://www.youtube.com/watch?v=CFBZ4jN1CMI" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>10-12</td><td>75 sec</td><td><span class="rpe-chip">RPE 7</span></td><td>Neutral grip, brachialis and brachioradialis emphasis, no swinging</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- PULL B -->
-    <div class="workout-section">
-      <div class="workout-header"><span class="workout-badge badge-pull">PULL B</span><span class="workout-title">Saturday - Horizontal Pull Primary</span></div>
-      <table class="exercise-table">
-        <thead><tr><th>#</th><th>Exercise</th><th>Sets</th><th>Reps</th><th>Rest</th><th>RPE</th><th>Technique Notes</th></tr></thead>
-        <tbody>
-          <tr class="compound-row"><td>1</td><td><div class="ex-name">Barbell Row (Pendlay Style)</div><div class="ex-note">Compound - Mid-back primary</div><a class="ex-link" href="https://www.youtube.com/watch?v=9efgcAjQe7E" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>4</td><td>5-6</td><td>3 min</td><td><span class="rpe-chip">RPE 8</span></td><td>Bar starts on floor each rep, near-horizontal torso, elbows in tight, powerful pull</td></tr>
-          <tr><td>2</td><td><div class="ex-name">Lat Pulldown (Wide Grip)</div><a class="ex-link" href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>4</td><td>8-10</td><td>2 min</td><td><span class="rpe-chip">RPE 7-8</span></td><td>Slight lean back, pull elbows down to hips, feel lat stretch at top</td></tr>
-          <tr><td>3</td><td><div class="ex-name">Single-Arm Dumbbell Row</div><a class="ex-link" href="https://www.youtube.com/watch?v=pYcpY20QaE8" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>10-12/side</td><td>90 sec</td><td><span class="rpe-chip">RPE 7</span></td><td>Allow shoulder blade to travel fully (protract/retract), no hip rotation</td></tr>
-          <tr><td>4</td><td><div class="ex-name">Rope Pullover (Cable)</div><a class="ex-link" href="https://www.youtube.com/watch?v=4VsHpFRJQyI" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>12-15</td><td>90 sec</td><td><span class="rpe-chip">RPE 7</span></td><td>Straight arms, stretch lats at top, contract fully at hip level</td></tr>
-          <tr><td>5</td><td><div class="ex-name">Incline Dumbbell Curl</div><a class="ex-link" href="https://www.youtube.com/watch?v=soxrZlIl35U" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>10-12</td><td>90 sec</td><td><span class="rpe-chip">RPE 7</span></td><td>Long head stretch position, slow eccentric, no momentum</td></tr>
-          <tr><td>6</td><td><div class="ex-name">Cable Rear Delt Fly</div><a class="ex-link" href="https://www.youtube.com/watch?v=EA7u4Q_8HQ0" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>15-20</td><td>75 sec</td><td><span class="rpe-chip">RPE 6</span></td><td>Cross-body cable, arms nearly straight, pinch scapula at finish</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- LEGS A -->
-    <div class="workout-section">
-      <div class="workout-header"><span class="workout-badge badge-legs">LEGS A</span><span class="workout-title">Wednesday - Quad Primary</span></div>
-      <table class="exercise-table">
-        <thead><tr><th>#</th><th>Exercise</th><th>Sets</th><th>Reps</th><th>Rest</th><th>RPE</th><th>Technique Notes</th></tr></thead>
-        <tbody>
-          <tr class="compound-row"><td>1</td><td><div class="ex-name">Barbell Back Squat</div><div class="ex-note">Compound - King of lower body</div><a class="ex-link" href="https://www.youtube.com/watch?v=bEv6CCg2BC8" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>4</td><td>4-6</td><td>3-4 min</td><td><span class="rpe-chip">RPE 8-9</span></td><td>Hip crease below knee, 360 degree brace, knees track toes, proud chest throughout</td></tr>
-          <tr><td>2</td><td><div class="ex-name">Leg Press</div><a class="ex-link" href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>10-12</td><td>2 min</td><td><span class="rpe-chip">RPE 7-8</span></td><td>Full range without locking out under load, feet shoulder-width, controlled descent</td></tr>
-          <tr><td>3</td><td><div class="ex-name">Walking Lunges (Dumbbell)</div><a class="ex-link" href="https://www.youtube.com/watch?v=L8fvypPrzzs" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>10-12/leg</td><td>2 min</td><td><span class="rpe-chip">RPE 7</span></td><td>Upright torso, rear knee touches floor lightly, drive through front heel on ascent</td></tr>
-          <tr><td>4</td><td><div class="ex-name">Leg Extension</div><a class="ex-link" href="https://www.youtube.com/watch?v=YyvSfVjQeL0" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>12-15</td><td>90 sec</td><td><span class="rpe-chip">RPE 7</span></td><td>Peak contraction hold 1 sec, controlled 3 sec lowering, VMO focus</td></tr>
-          <tr><td>5</td><td><div class="ex-name">Lying Leg Curl</div><a class="ex-link" href="https://www.youtube.com/watch?v=1Tq3QdYUuHs" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>10-12</td><td>90 sec</td><td><span class="rpe-chip">RPE 7</span></td><td>Plantar flex at start, pull heels to glutes, avoid hip lift, slow eccentric</td></tr>
-          <tr><td>6</td><td><div class="ex-name">Standing Calf Raise</div><a class="ex-link" href="https://www.youtube.com/watch?v=gwLzBJYoWlI" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>4</td><td>15-20</td><td>75 sec</td><td><span class="rpe-chip">RPE 7</span></td><td>Full stretch at bottom, 2 sec hold at top, 3 sec eccentric - calves respond to time under tension</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- LEGS B -->
-    <div class="workout-section">
-      <div class="workout-header"><span class="workout-badge badge-legs">LEGS B</span><span class="workout-title">Sunday - Posterior Chain Primary</span></div>
-      <table class="exercise-table">
-        <thead><tr><th>#</th><th>Exercise</th><th>Sets</th><th>Reps</th><th>Rest</th><th>RPE</th><th>Technique Notes</th></tr></thead>
-        <tbody>
-          <tr class="compound-row"><td>1</td><td><div class="ex-name">Romanian Deadlift (RDL)</div><div class="ex-note">Compound - Hamstring and Glute primary</div><a class="ex-link" href="https://www.youtube.com/watch?v=JCXUYuzwNrM" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>4</td><td>6-8</td><td>3 min</td><td><span class="rpe-chip">RPE 8</span></td><td>Hip hinge to mid-shin, maintain neutral spine, feel hamstring stretch, squeeze glutes on ascent</td></tr>
-          <tr class="compound-row"><td>2</td><td><div class="ex-name">Hip Thrust (Barbell)</div><a class="ex-link" href="https://www.youtube.com/watch?v=xDmFkJxPzeM" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>4</td><td>8-10</td><td>2.5 min</td><td><span class="rpe-chip">RPE 8</span></td><td>Upper back on bench, squeeze glutes hard at top, posterior pelvic tilt at lockout</td></tr>
-          <tr><td>3</td><td><div class="ex-name">Bulgarian Split Squat (Dumbbell)</div><a class="ex-link" href="https://www.youtube.com/watch?v=2C-uNgKwPLE" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>8-10/leg</td><td>2 min</td><td><span class="rpe-chip">RPE 7-8</span></td><td>Rear foot elevated, upright torso, knee tracks over toe, hip flexor stretch on rear leg</td></tr>
-          <tr><td>4</td><td><div class="ex-name">Seated Leg Curl</div><a class="ex-link" href="https://www.youtube.com/watch?v=ELOCsoDSmrg" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>10-12</td><td>90 sec</td><td><span class="rpe-chip">RPE 7</span></td><td>Stretch position is key for hypertrophy, 3 sec eccentric lowering</td></tr>
-          <tr><td>5</td><td><div class="ex-name">Cable Pull-Through</div><a class="ex-link" href="https://www.youtube.com/watch?v=sP_4gyLi_WI" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>3</td><td>12-15</td><td>90 sec</td><td><span class="rpe-chip">RPE 6</span></td><td>Hip hinge movement not a squat, squeeze glutes at top, maintain neutral spine</td></tr>
-          <tr><td>6</td><td><div class="ex-name">Seated Calf Raise</div><a class="ex-link" href="https://www.youtube.com/watch?v=JbyjNymZOt0" target="_blank"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><polygon points="2,1 9,5 2,9"/></svg>WATCH TUTORIAL</a></td><td>4</td><td>15-20</td><td>75 sec</td><td><span class="rpe-chip">RPE 7</span></td><td>Soleus emphasis, use heavier weight than standing, full stretch required</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="callout"><strong>Optional Cardio for Fat Loss:</strong> 3-4x/week, 20-30 min Zone 2 (brisk walk, bike, or rowing at conversational pace). Best on Thursday rest day or post-workout. Avoid high-intensity cardio - it competes with strength adaptations and elevates cortisol, which directly impairs body recomposition.</div>
-  </div>
-</div>
-
-<!-- SECTION 3 -->
-<div class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">03</span>
-      <h2 class="section-title">12-Week Progression Plan</h2>
-    </div>
-    <div class="phase-grid">
-      <div class="phase-card">
-        <div class="phase-label">Phase 1</div>
-        <div class="phase-name">Foundation &amp; Adaptation</div>
-        <div class="phase-weeks">Weeks 1-4</div>
-        <ul class="phase-list">
-          <li>Intensity: 65-75% 1RM / RPE 7</li>
-          <li>Volume: Moderate - master technique first</li>
-          <li>Compound reps: 6-8; Accessory: 10-15</li>
-          <li>Add 2.5kg when RPE stays at or below 7 for 2 sessions</li>
-          <li>Log every session: weight, reps, and RPE</li>
-          <li>Rest: 2-3 min compounds, 90 sec accessories</li>
-        </ul>
-      </div>
-      <div class="phase-card">
-        <div class="phase-label">Phase 2</div>
-        <div class="phase-name">Strength &amp; Hypertrophy</div>
-        <div class="phase-weeks">Weeks 5-8</div>
-        <ul class="phase-list">
-          <li>Intensity: 75-85% 1RM / RPE 8</li>
-          <li>Volume: Increase by 1 set per main compound</li>
-          <li>Compound reps: 4-6; Accessory: 8-12</li>
-          <li>Increase 2.5-5kg when top rep range hit 2 sessions in a row</li>
-          <li>Introduce 1 drop set per session on final accessory</li>
-          <li>Rest: 3 min compounds, 90-120 sec accessories</li>
-        </ul>
-      </div>
-      <div class="phase-card">
-        <div class="phase-label">Phase 3</div>
-        <div class="phase-name">Intensification &amp; Peak</div>
-        <div class="phase-weeks">Weeks 9-12</div>
-        <ul class="phase-list">
-          <li>Intensity: 80-90% 1RM / RPE 8-9</li>
-          <li>Volume: Slightly reduced sets, heavier loads</li>
-          <li>Compound reps: 3-5; Accessory: 8-10</li>
-          <li>Double progression: increase load or reps each session</li>
-          <li>Week 11: Full deload (see below)</li>
-          <li>Week 12: Test new 1RM or top rep set on key lifts</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="deload-box">
-      <div class="deload-title">Deload Protocol - Week 11</div>
-      <p style="color:var(--muted);font-size:13.5px">Reduce volume by 40-50% and load by 20%. Perform all exercises with perfect technique at a controlled tempo. Do NOT skip the deload - this is when your body consolidates adaptations, heals micro-traumas, and resets the nervous system. On carnivore, the deload week is especially powerful as systemic inflammation drops sharply. Use this week to focus on sleep quality and full dietary compliance.</p>
-    </div>
-
-    <hr class="divider">
-    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--text);margin-bottom:16px;">Weekly Progressive Overload Reference</h3>
-    <table class="progress-table">
-      <thead><tr><th>Week</th><th>Phase</th><th>RPE Target</th><th>Compound Reps</th><th>Accessory Reps</th><th>Load Change</th><th>Volume</th></tr></thead>
-      <tbody>
-        <tr><td>1</td><td>Foundation</td><td>6-7</td><td>6-8</td><td>12-15</td><td>Establish baselines</td><td>Moderate</td></tr>
-        <tr><td>2</td><td>Foundation</td><td>7</td><td>6-8</td><td>12-15</td><td>+2.5kg if RPE below 7</td><td>Moderate</td></tr>
-        <tr><td>3</td><td>Foundation</td><td>7-8</td><td>6-8</td><td>10-12</td><td>+2.5kg/compound</td><td>Moderate</td></tr>
-        <tr><td>4</td><td>Foundation</td><td>7-8</td><td>6-8</td><td>10-12</td><td>+2.5kg/compound</td><td>Moderate</td></tr>
-        <tr><td>5</td><td>Strength</td><td>8</td><td>5-7</td><td>10-12</td><td>+2.5-5kg</td><td>+1 set added</td></tr>
-        <tr><td>6</td><td>Strength</td><td>8</td><td>5-7</td><td>8-12</td><td>+2.5-5kg</td><td>High</td></tr>
-        <tr><td>7</td><td>Strength</td><td>8-9</td><td>4-6</td><td>8-10</td><td>+2.5-5kg</td><td>High</td></tr>
-        <tr><td>8</td><td>Strength</td><td>8-9</td><td>4-6</td><td>8-10</td><td>+2.5-5kg</td><td>High</td></tr>
-        <tr><td>9</td><td>Intensification</td><td>8-9</td><td>3-5</td><td>8-10</td><td>+5kg compounds</td><td>Moderate-High</td></tr>
-        <tr><td>10</td><td>Intensification</td><td>8-9</td><td>3-5</td><td>8-10</td><td>+5kg compounds</td><td>Moderate-High</td></tr>
-        <tr><td>11</td><td>DELOAD</td><td>5-6</td><td>6-8</td><td>12-15</td><td>-20% load</td><td>-40-50% volume</td></tr>
-        <tr><td>12</td><td>Peak / Test</td><td>9-10</td><td>1-3 (PR attempt)</td><td>8-10</td><td>Max effort</td><td>Low volume</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- SECTION 4 -->
-<div class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">04</span>
-      <h2 class="section-title">Carnivore Nutrition Strategy</h2>
-    </div>
-    <div class="macro-row">
-      <div class="macro-card"><div class="macro-val">2,400</div><div class="macro-unit">kcal/day</div><div class="macro-name">Calorie Target</div><div class="macro-note">300-400 kcal deficit for fat loss with muscle retention. Adjust plus or minus 100 kcal based on weekly weight trend.</div></div>
-      <div class="macro-card"><div class="macro-val">~180</div><div class="macro-unit">g/day</div><div class="macro-name">Protein Target</div><div class="macro-note">2.2g per kg bodyweight. Non-negotiable floor for muscle preservation in a caloric deficit.</div></div>
-      <div class="macro-card"><div class="macro-val">~155</div><div class="macro-unit">g/day</div><div class="macro-name">Fat Target</div><div class="macro-note">Primary fuel source. Adjust higher on rest days, slightly lower on heavy training days if needed.</div></div>
-    </div>
-    <div class="callout"><strong>Carbohydrate target: 0-5g/day</strong> (trace amounts from organ meats only). This maintains a fat-adapted metabolic state, enhancing lipolysis and insulin sensitivity - both critical for body recomposition at age 34.</div>
-    <div class="callout"><strong>Why carnivore accelerates recomp:</strong> Elimination of processed foods and plant antigens reduces systemic inflammation. High satiety per calorie from protein and fat prevents overeating without tracking. Ketosis improves insulin sensitivity and fat oxidation. Complete amino acid profiles from animal foods maximize muscle protein synthesis at every meal.</div>
-
-    <div style="margin-top:28px">
-      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--text);margin-bottom:16px;">Approved Food List</h3>
-      <div class="phase-grid">
-        <div class="phase-card">
-          <div class="phase-label">Muscle Meats</div>
-          <div class="phase-name">Primary Proteins</div>
-          <ul class="phase-list">
-            <li>Beef ribeye steak (highest nutrient density)</li>
-            <li>Ground beef 80/20 (fat and protein balance)</li>
-            <li>NY strip, sirloin, chuck roast</li>
-            <li>Lamb shoulder, rack of lamb, leg</li>
-            <li>Pork belly, pork shoulder</li>
-            <li>Chicken thighs skin-on or breast</li>
-            <li>Whole eggs (6-8 per day, most versatile food)</li>
-          </ul>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>12-Week Body Recomposition Program</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0d0d0d;
+        --surface: #151515;
+        --surface2: #1c1c1c;
+        --border: #2a2a2a;
+        --accent: #c8a96e;
+        --accent2: #8b1a1a;
+        --accent3: #4a7c59;
+        --text: #e8e0d0;
+        --muted: #7a7060;
+        --push: #c0522a;
+        --pull: #2a6cb0;
+        --legs: #4a7c59;
+        --rest: #555;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'DM Sans', sans-serif;
+        font-size: 15px;
+        line-height: 1.7;
+      }
+      .hero {
+        background: linear-gradient(
+          135deg,
+          #0d0d0d 0%,
+          #1a0a0a 50%,
+          #0d0d0d 100%
+        );
+        border-bottom: 1px solid var(--border);
+        padding: 60px 40px 50px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: -80px;
+        right: -80px;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          rgba(200, 169, 110, 0.08) 0%,
+          transparent 70%
+        );
+      }
+      .hero-tag {
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 3px;
+        color: var(--accent);
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+      .hero h1 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(52px, 8vw, 96px);
+        letter-spacing: 2px;
+        line-height: 0.9;
+        color: var(--text);
+      }
+      .hero h1 span {
+        color: var(--accent);
+      }
+      .hero-sub {
+        margin-top: 20px;
+        color: var(--muted);
+        max-width: 560px;
+        font-size: 14px;
+      }
+      .hero-stats {
+        display: flex;
+        gap: 32px;
+        margin-top: 32px;
+        flex-wrap: wrap;
+      }
+      .stat {
+        display: flex;
+        flex-direction: column;
+      }
+      .stat-val {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 28px;
+        color: var(--accent);
+        line-height: 1;
+      }
+      .stat-label {
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        color: var(--muted);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 4px;
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      .section {
+        padding: 56px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .section:last-child {
+        border-bottom: none;
+      }
+      .section-header {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 36px;
+      }
+      .section-num {
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+        color: var(--accent);
+        letter-spacing: 2px;
+      }
+      .section-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 36px;
+        letter-spacing: 1px;
+        color: var(--text);
+      }
+      .week-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+      }
+      .day-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 14px 10px;
+        text-align: center;
+      }
+      .day-card.push {
+        border-top: 3px solid var(--push);
+      }
+      .day-card.pull {
+        border-top: 3px solid var(--pull);
+      }
+      .day-card.legs {
+        border-top: 3px solid var(--legs);
+      }
+      .day-card.rest {
+        border-top: 3px solid var(--rest);
+        opacity: 0.7;
+      }
+      .day-name {
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        color: var(--muted);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .day-type {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 20px;
+        line-height: 1.1;
+      }
+      .day-card.push .day-type {
+        color: var(--push);
+      }
+      .day-card.pull .day-type {
+        color: var(--pull);
+      }
+      .day-card.legs .day-type {
+        color: var(--legs);
+      }
+      .day-card.rest .day-type {
+        color: var(--muted);
+      }
+      .day-focus {
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 4px;
+        line-height: 1.3;
+      }
+      .workout-section {
+        margin-bottom: 48px;
+      }
+      .workout-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .workout-badge {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 13px;
+        letter-spacing: 2px;
+        padding: 4px 12px;
+        border-radius: 3px;
+      }
+      .badge-push {
+        background: var(--push);
+        color: #fff;
+      }
+      .badge-pull {
+        background: var(--pull);
+        color: #fff;
+      }
+      .badge-legs {
+        background: var(--legs);
+        color: #fff;
+      }
+      .workout-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 28px;
+        color: var(--text);
+      }
+      .exercise-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+      }
+      .exercise-table thead th {
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-align: left;
+        padding: 10px 12px;
+        background: var(--surface2);
+        border-bottom: 1px solid var(--border);
+      }
+      .exercise-table tbody tr {
+        border-bottom: 1px solid var(--border);
+      }
+      .exercise-table tbody tr:hover {
+        background: var(--surface2);
+      }
+      .exercise-table td {
+        padding: 11px 12px;
+        vertical-align: top;
+        color: var(--text);
+      }
+      .ex-name {
+        font-weight: 500;
+        color: var(--accent);
+      }
+      .ex-note {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .ex-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 5px;
+        text-decoration: none;
+        background: rgba(255, 0, 0, 0.1);
+        border: 1px solid rgba(255, 60, 60, 0.25);
+        color: #ff6b6b;
+        border-radius: 3px;
+        padding: 2px 8px;
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 1px;
+        transition:
+          background 0.15s,
+          border-color 0.15s;
+      }
+      .ex-link:hover {
+        background: rgba(255, 0, 0, 0.22);
+        border-color: rgba(255, 60, 60, 0.5);
+        color: #ff9999;
+      }
+      .ex-link svg {
+        flex-shrink: 0;
+      }
+      .rpe-chip {
+        display: inline-block;
+        background: rgba(200, 169, 110, 0.12);
+        color: var(--accent);
+        border: 1px solid rgba(200, 169, 110, 0.25);
+        border-radius: 3px;
+        padding: 1px 7px;
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+      }
+      .compound-row td:first-child {
+        border-left: 2px solid var(--accent2);
+      }
+      .phase-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .phase-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 22px;
+      }
+      .phase-card:nth-child(1) {
+        border-top: 3px solid #3a7a5a;
+      }
+      .phase-card:nth-child(2) {
+        border-top: 3px solid var(--accent);
+      }
+      .phase-card:nth-child(3) {
+        border-top: 3px solid var(--accent2);
+      }
+      .phase-label {
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 2px;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .phase-name {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 24px;
+        color: var(--text);
+        margin-bottom: 12px;
+      }
+      .phase-weeks {
+        font-family: 'DM Mono', monospace;
+        font-size: 12px;
+        color: var(--accent);
+        margin-bottom: 14px;
+      }
+      .phase-list {
+        list-style: none;
+      }
+      .phase-list li {
+        font-size: 13px;
+        color: var(--muted);
+        padding: 4px 0;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .phase-list li::before {
+        content: '→';
+        color: var(--accent);
+        flex-shrink: 0;
+      }
+      .macro-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+      .macro-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+      }
+      .macro-val {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 42px;
+        color: var(--accent);
+        line-height: 1;
+      }
+      .macro-unit {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .macro-name {
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 2px;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-top: 8px;
+      }
+      .macro-note {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+      .meal-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .meal-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 18px;
+      }
+      .meal-num {
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        color: var(--accent);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .meal-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 20px;
+        color: var(--text);
+        margin-bottom: 10px;
+      }
+      .meal-items {
+        list-style: none;
+      }
+      .meal-items li {
+        font-size: 13px;
+        color: var(--muted);
+        padding: 3px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .meal-items li:last-child {
+        border-bottom: none;
+      }
+      .meal-cals {
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+        color: var(--accent);
+        margin-top: 10px;
+      }
+      .transition-steps {
+        counter-reset: step;
+      }
+      .t-step {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .t-step-num {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 36px;
+        color: var(--border);
+        line-height: 1;
+        flex-shrink: 0;
+        width: 40px;
+      }
+      .t-step-title {
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 4px;
+      }
+      .t-step-text {
+        font-size: 13.5px;
+        color: var(--muted);
+      }
+      .rec-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .rec-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 22px;
+      }
+      .rec-icon {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      .rec-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 22px;
+        color: var(--text);
+        margin-bottom: 10px;
+      }
+      .rec-list {
+        list-style: none;
+      }
+      .rec-list li {
+        font-size: 13px;
+        color: var(--muted);
+        padding: 4px 0;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        gap: 8px;
+      }
+      .rec-list li:last-child {
+        border-bottom: none;
+      }
+      .rec-list li::before {
+        content: '·';
+        color: var(--accent);
+      }
+      .rotation-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+      }
+      .rot-day {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 12px 8px;
+        text-align: center;
+      }
+      .rot-day-name {
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        color: var(--accent);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .rot-item {
+        font-size: 12px;
+        color: var(--muted);
+        padding: 3px 0;
+        border-bottom: 1px solid var(--border);
+        line-height: 1.3;
+      }
+      .rot-item:last-child {
+        border-bottom: none;
+      }
+      .callout {
+        background: rgba(200, 169, 110, 0.07);
+        border: 1px solid rgba(200, 169, 110, 0.2);
+        border-left: 3px solid var(--accent);
+        border-radius: 0 6px 6px 0;
+        padding: 14px 18px;
+        margin: 16px 0;
+        font-size: 13.5px;
+        color: var(--muted);
+      }
+      .callout strong {
+        color: var(--accent);
+      }
+      .deload-box {
+        background: rgba(139, 26, 26, 0.1);
+        border: 1px solid rgba(139, 26, 26, 0.3);
+        border-radius: 8px;
+        padding: 20px 24px;
+        margin-top: 20px;
+      }
+      .deload-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 22px;
+        color: var(--accent2);
+        margin-bottom: 8px;
+      }
+      .warmup-block {
+        background: var(--surface2);
+        border-radius: 6px;
+        padding: 14px 18px;
+        margin-bottom: 16px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .warmup-block strong {
+        color: var(--text);
+        display: block;
+        margin-bottom: 6px;
+      }
+      .elec-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 12px;
+      }
+      .elec-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 14px;
+      }
+      .elec-name {
+        font-weight: 600;
+        color: var(--accent);
+        margin-bottom: 4px;
+      }
+      .elec-source {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .progress-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      .progress-table th {
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 2px;
+        color: var(--muted);
+        text-align: left;
+        padding: 8px 12px;
+        background: var(--surface2);
+        border-bottom: 1px solid var(--border);
+      }
+      .progress-table td {
+        padding: 9px 12px;
+        border-bottom: 1px solid var(--border);
+        color: var(--text);
+      }
+      .progress-table tr:hover td {
+        background: var(--surface2);
+      }
+      hr.divider {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 24px 0;
+      }
+      @media (max-width: 768px) {
+        .week-grid,
+        .rotation-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .phase-grid,
+        .meal-grid,
+        .macro-row {
+          grid-template-columns: 1fr 1fr;
+        }
+        .rec-grid,
+        .elec-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero {
+          padding: 40px 20px;
+        }
+        .container {
+          padding: 0 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <div class="container">
+        <div class="hero-tag">
+          // Certified Strength &amp; Nutrition Protocol
         </div>
-        <div class="phase-card">
-          <div class="phase-label">Organ Meats</div>
-          <div class="phase-name">Nutrient Powerhouses</div>
-          <ul class="phase-list">
-            <li>Beef liver (2-3x/week) - B12, folate, iron</li>
-            <li>Beef kidney - CoQ10, selenium</li>
-            <li>Beef heart - CoQ10, taurine, zinc</li>
-            <li>Bone marrow - fat-soluble vitamins A/D/K2</li>
-            <li>Beef tongue - fatty and calorie dense</li>
-            <li>Chicken liver (milder flavor, easier entry)</li>
-          </ul>
-        </div>
-        <div class="phase-card">
-          <div class="phase-label">Fish and Seafood</div>
-          <div class="phase-name">Omega-3 Sources</div>
-          <ul class="phase-list">
-            <li>Salmon (fattier cuts are better on carnivore)</li>
-            <li>Sardines whole (highest omega-3 per gram)</li>
-            <li>Mackerel - exceptional omega-3 density</li>
-            <li>Shrimp - lean protein, rich in iodine</li>
-            <li>Tuna (moderate frequency due to mercury)</li>
-            <li>Oysters (1-2x/week) - zinc, copper, selenium</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div style="margin-top:28px">
-      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--text);margin-bottom:8px;">Electrolyte Strategy - Whole Foods Only</h3>
-      <p style="color:var(--muted);font-size:13.5px;margin-bottom:12px">On carnivore, low insulin causes kidneys to excrete sodium, potassium, and magnesium at higher rates. Deficiency causes fatigue, cramps, and brain fog often mistaken for adaptation problems.</p>
-      <div class="elec-grid">
-        <div class="elec-card"><div class="elec-name">Sodium — 2,000-4,000mg/day</div><div class="elec-source">Salt all meat liberally. Use pink Himalayan or sea salt on every meal. Homemade bone broth is excellent. Do not fear salt on carnivore.</div></div>
-        <div class="elec-card"><div class="elec-name">Potassium — 3,000-4,700mg/day</div><div class="elec-source">Ribeye steak, salmon, sardines, and beef heart are all high in potassium. Eating 600-700g of meat daily covers this naturally.</div></div>
-        <div class="elec-card"><div class="elec-name">Magnesium — 300-400mg/day</div><div class="elec-source">Beef liver, mackerel, and oysters are the best whole-food sources. Prioritize seafood 3-4x per week to cover this without supplements.</div></div>
-      </div>
-    </div>
-    <div class="callout" style="margin-top:20px"><strong>Hydration:</strong> Target 3-4 litres of water per day. Carnivore is naturally diuretic so drink to thirst plus an extra 500ml. Morning: 500ml water with a generous pinch of salt before training. Bone broth (1-2 cups per day) is ideal for hydration, electrolytes, and collagen for joint health.</div>
-  </div>
-</div>
-
-<!-- SECTION 5 -->
-<div class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">05</span>
-      <h2 class="section-title">Sample Daily Meal Plan</h2>
-    </div>
-    <div class="callout"><strong>Training Day Template</strong> — approximately 2,400 kcal, 180g protein, 155g fat</div>
-    <div class="meal-grid">
-      <div class="meal-card">
-        <div class="meal-num">Meal 01 — 7:00 AM</div>
-        <div class="meal-title">Pre-Training Meal</div>
-        <ul class="meal-items">
-          <li>4 whole eggs scrambled in butter</li>
-          <li>200g ground beef 80/20 pan-cooked</li>
-          <li>20g butter for cooking</li>
-          <li>Himalayan salt generously</li>
-          <li>500ml water with pinch of salt</li>
-        </ul>
-        <div class="meal-cals">~700 kcal &middot; ~60g protein &middot; ~52g fat</div>
-      </div>
-      <div class="meal-card">
-        <div class="meal-num">Meal 02 — 12:30 PM</div>
-        <div class="meal-title">Post-Workout Meal</div>
-        <ul class="meal-items">
-          <li>350g ribeye steak (cooked weight ~280g)</li>
-          <li>2 whole eggs soft boiled</li>
-          <li>Tallow or steak drippings for fat</li>
-          <li>1 cup homemade bone broth</li>
-          <li>Sea salt to taste</li>
-        </ul>
-        <div class="meal-cals">~850 kcal &middot; ~75g protein &middot; ~60g fat</div>
-      </div>
-      <div class="meal-card">
-        <div class="meal-num">Meal 03 — 6:30 PM</div>
-        <div class="meal-title">Dinner — Organ Focus</div>
-        <ul class="meal-items">
-          <li>150g beef liver pan-fried in butter</li>
-          <li>200g salmon fillet baked or pan-seared</li>
-          <li>20g butter on liver</li>
-          <li>Salt and optional dried herbs</li>
-          <li>1 cup bone broth</li>
-        </ul>
-        <div class="meal-cals">~750 kcal &middot; ~80g protein &middot; ~48g fat</div>
-      </div>
-    </div>
-    <div style="margin-top:16px">
-      <div class="meal-card" style="max-width:420px">
-        <div class="meal-num">Optional — 9:00 PM</div>
-        <div class="meal-title">Evening Snack (only if genuinely hungry)</div>
-        <ul class="meal-items">
-          <li>3-4 whole eggs hard boiled</li>
-          <li>30g beef jerky (no sugar added)</li>
-        </ul>
-        <div class="meal-cals">~300 kcal &middot; ~28g protein &middot; ~18g fat</div>
-      </div>
-    </div>
-    <div class="callout" style="margin-top:16px"><strong>Rest Day Template:</strong> Keep protein the same at 180g. Reduce fat by 20-30g by using less butter and tallow. Total calories drop to approximately 2,100-2,200 — creating a slightly deeper deficit on non-training days is a natural and effective body recomposition strategy.</div>
-
-    <div style="margin-top:32px">
-      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--text);margin-bottom:16px;">Weekly Food Rotation</h3>
-      <div class="rotation-grid">
-        <div class="rot-day"><div class="rot-day-name">MON</div><div class="rot-item">Ribeye steak</div><div class="rot-item">Ground beef</div><div class="rot-item">Eggs</div></div>
-        <div class="rot-day"><div class="rot-day-name">TUE</div><div class="rot-item">Salmon</div><div class="rot-item">Beef liver</div><div class="rot-item">Eggs</div></div>
-        <div class="rot-day"><div class="rot-day-name">WED</div><div class="rot-item">Lamb shoulder</div><div class="rot-item">Sardines</div><div class="rot-item">Eggs</div></div>
-        <div class="rot-day"><div class="rot-day-name">THU</div><div class="rot-item">NY Strip</div><div class="rot-item">Beef heart</div><div class="rot-item">Eggs</div></div>
-        <div class="rot-day"><div class="rot-day-name">FRI</div><div class="rot-item">Pork belly</div><div class="rot-item">Mackerel</div><div class="rot-item">Eggs</div></div>
-        <div class="rot-day"><div class="rot-day-name">SAT</div><div class="rot-item">Chuck roast</div><div class="rot-item">Beef kidney</div><div class="rot-item">Shrimp</div></div>
-        <div class="rot-day"><div class="rot-day-name">SUN</div><div class="rot-item">Bone marrow</div><div class="rot-item">Chicken thighs</div><div class="rot-item">Oysters</div></div>
-      </div>
-      <p style="color:var(--muted);font-size:12px;margin-top:8px">Rotation prevents nutrient gaps and palate fatigue. Eggs appear daily as the most complete, affordable, and versatile whole food available.</p>
-    </div>
-  </div>
-</div>
-
-<!-- SECTION 6 -->
-<div class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">06</span>
-      <h2 class="section-title">Dirty to Strict Carnivore Transition</h2>
-    </div>
-    <p style="color:var(--muted);margin-bottom:28px;font-size:14px">A gradual transition prevents GI distress, cravings, and adaptation fatigue. The 12-week training plan aligns with progressive dietary strictness so both training and nutrition peak together.</p>
-    <div class="transition-steps">
-      <div class="t-step">
-        <div class="t-step-num">1</div>
-        <div class="t-step-body">
-          <div class="t-step-title">Weeks 1-2: Remove the Worst Offenders</div>
-          <div class="t-step-text">Eliminate all processed junk, seed oils (canola, sunflower, soybean), refined sugars, packaged snacks, and fast food. You can still have coffee, dairy (butter, cheese, heavy cream), and minor condiments. Increase meat and egg portions to replace eliminated calories. Target 80%+ of calories from animal foods this fortnight.</div>
-        </div>
-      </div>
-      <div class="t-step">
-        <div class="t-step-num">2</div>
-        <div class="t-step-body">
-          <div class="t-step-title">Weeks 3-4: Plant Food Reduction Phase</div>
-          <div class="t-step-text">Begin removing plant foods systematically. Start with grains, legumes, and high-oxalate vegetables (spinach, almonds, chocolate). If eating salads or cooked vegetables, reduce to 10% of each meal then eliminate by end of Week 4. Keep fermented dairy if gut health requires transition support. Monitor energy, sleep, and gym performance - these should stabilize or improve.</div>
-        </div>
-      </div>
-      <div class="t-step">
-        <div class="t-step-num">3</div>
-        <div class="t-step-body">
-          <div class="t-step-title">Weeks 5-6: Dairy Evaluation Phase</div>
-          <div class="t-step-text">Remove all dairy except butter, which is nearly pure fat with minimal protein and casein. Evaluate whether heavy cream or cheese was causing bloating or stalled fat loss. Many people perform best with butter only. If fat loss is progressing and performance is strong, small amounts of hard cheese (aged cheddar, parmesan) can remain temporarily.</div>
-        </div>
-      </div>
-      <div class="t-step">
-        <div class="t-step-num">4</div>
-        <div class="t-step-body">
-          <div class="t-step-title">Weeks 7-8: Coffee Elimination Phase</div>
-          <div class="t-step-text">Coffee is a plant-derived compound - strict carnivore excludes it. Begin tapering from Weeks 7-8. Reduce gradually: 2 cups to 1 cup to half a cup to none over 2 weeks. This prevents caffeine withdrawal headaches from disrupting training. If energy remains stable without coffee, you have achieved full fat-adaptation. If pre-workout performance drops sharply, keep 1 black coffee before training temporarily.</div>
-        </div>
-      </div>
-      <div class="t-step">
-        <div class="t-step-num">5</div>
-        <div class="t-step-body">
-          <div class="t-step-title">Weeks 9-12: Full Strict Carnivore</div>
-          <div class="t-step-text">Diet consists exclusively of meat, fish, eggs, animal fats, organ meats, water, and salt. This is when the deepest metabolic benefits compound - anti-inflammatory cascade, peak insulin sensitivity, maximum fat oxidation. Your body is fully fat-adapted and using fatty acids as the primary fuel for both daily life and training. Performance should be stable and strength should be increasing week over week.</div>
+        <h1>12-WEEK<br /><span>BODY RECOMP</span><br />PROGRAM</h1>
+        <p class="hero-sub">
+          Push / Pull / Legs &middot; Carnivore Nutrition &middot; Progressive
+          Overload &middot; Metabolic Optimization
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-val">34</span><span class="stat-label">Age</span>
+          </div>
+          <div class="stat">
+            <span class="stat-val">82kg</span
+            ><span class="stat-label">Bodyweight</span>
+          </div>
+          <div class="stat">
+            <span class="stat-val">5'5"</span
+            ><span class="stat-label">Height</span>
+          </div>
+          <div class="stat">
+            <span class="stat-val">PPL</span
+            ><span class="stat-label">Split</span>
+          </div>
+          <div class="stat">
+            <span class="stat-val">12</span
+            ><span class="stat-label">Weeks</span>
+          </div>
+          <div class="stat">
+            <span class="stat-val">6x</span
+            ><span class="stat-label">Sessions/Week</span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="callout"><strong>Managing the Carnivore Adaptation Period (Weeks 1-3):</strong> Expect 3-10 days of fatigue, brain fog, or mild headaches as metabolism switches from glucose to fat. Combat this by: salting all food aggressively, drinking bone broth daily, increasing fat content in meals (ribeye over chicken breast), and sleeping an extra 30-60 minutes per night. This is temporary and is a sign of metabolic transition, not a problem with the approach.</div>
-  </div>
-</div>
 
-<!-- SECTION 7 -->
-<div class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">07</span>
-      <h2 class="section-title">Recovery and Lifestyle</h2>
-    </div>
-    <div class="rec-grid">
-      <div class="rec-card">
-        <div class="rec-icon">🌙</div>
-        <div class="rec-title">Sleep Protocol</div>
-        <ul class="rec-list">
-          <li>Target 7.5-9 hours of sleep - muscle growth happens here, not in the gym</li>
-          <li>Consistent bed and wake time within 30 minutes, 7 days per week</li>
-          <li>Room temperature 18-20 degrees Celsius for deeper sleep architecture</li>
-          <li>No screens 60 minutes before bed - blue light suppresses melatonin</li>
-          <li>Last meal 2-3 hours before sleep to optimize growth hormone release</li>
-          <li>Carnivore advantage: tryptophan and glycine from meat are natural sleep aids</li>
-        </ul>
-      </div>
-      <div class="rec-card">
-        <div class="rec-icon">🔁</div>
-        <div class="rec-title">Active Recovery and Mobility</div>
-        <ul class="rec-list">
-          <li>Thursday: 20-30 min easy walk Zone 1-2 - do not skip this session</li>
-          <li>Daily: 5-10 min hip flexor and thoracic spine mobility (cumulative benefit)</li>
-          <li>Post-leg day: 2 min pigeon pose per side and 2 min couch stretch per side</li>
-          <li>Post-push day: 2 min doorway chest stretch and pec minor release</li>
-          <li>Post-pull day: 2 min lat stretch overhead and shoulder cross-body stretch</li>
-          <li>Weekly: 10 min foam roll on quads, thoracic spine, and lats</li>
-        </ul>
-      </div>
-      <div class="rec-card">
-        <div class="rec-icon">🥩</div>
-        <div class="rec-title">Training on Carnivore — Key Tips</div>
-        <ul class="rec-list">
-          <li>Train 2-3 hours after your first meat meal, not fully fasted in early weeks</li>
-          <li>If energy is low in Weeks 1-3, add extra butter or tallow to pre-workout meal</li>
-          <li>Fat adaptation completes around Week 4-6 and energy becomes rock solid</li>
-          <li>Do not measure peak performance in Weeks 1-3 during transition</li>
-          <li>Post-workout: prioritize protein within 90 minutes - steak or ground beef</li>
-          <li>Expect a 1-2 week strength stall at fat-adaptation then a strong rebound</li>
-        </ul>
-      </div>
-      <div class="rec-card">
-        <div class="rec-icon">🛡️</div>
-        <div class="rec-title">Injury Prevention</div>
-        <ul class="rec-list">
-          <li>Always perform 2 warm-up sets before first working set on compound lifts</li>
-          <li>Never skip the 10 minute warm-up routine - this is non-negotiable</li>
-          <li>For knees: terminal knee extensions before every squat and leg day</li>
-          <li>For shoulders: band pull-aparts 3 sets of 20 before every push session</li>
-          <li>For lower back: hip hinge practice with light load before every deadlift session</li>
-          <li>If joint pain occurs: reduce load 20%, address technique, add face pulls daily</li>
-        </ul>
-      </div>
-      <div class="rec-card">
-        <div class="rec-icon">📊</div>
-        <div class="rec-title">Progress Tracking</div>
-        <ul class="rec-list">
-          <li>Weigh 3x per week (Monday, Wednesday, Friday) morning post-void</li>
-          <li>Use 7-day rolling average - daily fluctuations on carnivore are significant</li>
-          <li>Take progress photos every 2 weeks in same lighting at same time of day</li>
-          <li>Track every session in a training log - this is required for progressive overload</li>
-          <li>Target rate: 0.5-1% bodyweight per week loss (0.4-0.8kg per week at 82kg)</li>
-          <li>Losing more than 1kg per week: add 200 kcal per day from fat sources</li>
-        </ul>
-      </div>
-      <div class="rec-card">
-        <div class="rec-icon">⚡</div>
-        <div class="rec-title">Metabolic Health Optimization</div>
-        <ul class="rec-list">
-          <li>Morning sunlight: 5-10 minutes outdoor exposure to reset cortisol rhythm</li>
-          <li>Stress management: chronic cortisol directly opposes body recomposition goals</li>
-          <li>Cold exposure optional: cold shower post-training reduces delayed onset muscle soreness</li>
-          <li>Eliminate alcohol entirely - it suppresses testosterone and severely disrupts sleep</li>
-          <li>Intermittent fasting optional: 16:8 eating window pairs naturally with carnivore</li>
-          <li>Organ meats naturally support liver function, the central hub of metabolic health</li>
-        </ul>
+    <!-- SECTION 1 -->
+    <div class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">01</span>
+          <h2 class="section-title">Weekly Training Schedule</h2>
+        </div>
+        <div class="week-grid">
+          <div class="day-card push">
+            <div class="day-name">MON</div>
+            <div class="day-type">PUSH A</div>
+            <div class="day-focus">
+              Chest &middot; Shoulders &middot; Triceps
+            </div>
+          </div>
+          <div class="day-card pull">
+            <div class="day-name">TUE</div>
+            <div class="day-type">PULL A</div>
+            <div class="day-focus">
+              Back &middot; Biceps &middot; Rear Delts
+            </div>
+          </div>
+          <div class="day-card legs">
+            <div class="day-name">WED</div>
+            <div class="day-type">LEGS A</div>
+            <div class="day-focus">
+              Quads &middot; Hamstrings &middot; Glutes &middot; Calves
+            </div>
+          </div>
+          <div class="day-card rest">
+            <div class="day-name">THU</div>
+            <div class="day-type">REST</div>
+            <div class="day-focus">Light cardio or full rest</div>
+          </div>
+          <div class="day-card push">
+            <div class="day-name">FRI</div>
+            <div class="day-type">PUSH B</div>
+            <div class="day-focus">
+              Chest &middot; Shoulders &middot; Triceps
+            </div>
+          </div>
+          <div class="day-card pull">
+            <div class="day-name">SAT</div>
+            <div class="day-type">PULL B</div>
+            <div class="day-focus">
+              Back &middot; Biceps &middot; Rear Delts
+            </div>
+          </div>
+          <div class="day-card legs">
+            <div class="day-name">SUN</div>
+            <div class="day-type">LEGS B</div>
+            <div class="day-focus">Posterior chain or Active Recovery</div>
+          </div>
+        </div>
+        <div class="callout" style="margin-top: 20px">
+          <strong>Thursday Protocol:</strong> 20-30 min easy walk or Zone-2
+          cardio (60-65% max HR). This accelerates fat loss without impairing
+          recovery. Full rest is also acceptable, especially in Weeks 1-3.
+        </div>
       </div>
     </div>
 
-    <div class="callout" style="margin-top:28px"><strong>Realistic Recomposition Expectations at 34:</strong> As an intermediate lifter following this program, expect 1-2 kg of lean muscle gain and 4-6 kg of fat loss over 12 weeks. These are conservative, sustainable, and real numbers based on what physiology supports. The combination of PPL training with progressive overload, high-protein carnivore nutrition, and prioritized sleep and recovery is one of the most evidence-supported approaches for simultaneous fat loss and muscle gain at your age and experience level. Trust the process, log everything, and stay consistent.</div>
-  </div>
-</div>
+    <!-- SECTION 2 -->
+    <div class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">02</span>
+          <h2 class="section-title">Detailed Workouts</h2>
+        </div>
+        <div class="warmup-block">
+          <strong
+            >Universal Warm-Up (10 min) - apply before every session</strong
+          >5 min light cardio (bike or treadmill) &middot; 10 cat-cow &middot;
+          10 world's greatest stretch/side &middot; 10 band pull-aparts &middot;
+          10 hip circles/side &middot; 2 sets of compound movement with empty
+          bar at 50% working weight
+        </div>
+        <div class="warmup-block">
+          <strong
+            >Universal Cooldown (5-8 min) - apply after every session</strong
+          >2 min walk &middot; 60 sec chest doorway stretch &middot; 60 sec lat
+          stretch &middot; 60 sec hip flexor stretch/side &middot; 60 sec
+          hamstring stretch &middot; Diaphragmatic breathing (5 slow breaths)
+        </div>
+        <hr class="divider" />
 
-<div style="background:var(--surface);border-top:1px solid var(--border);padding:24px 40px;text-align:center">
-  <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:2px">PERSONALIZED 12-WEEK PROTOCOL &middot; PUSH / PULL / LEGS &middot; CARNIVORE NUTRITION &middot; PROGRESSIVE OVERLOAD</p>
-  <p style="font-size:12px;color:var(--muted);margin-top:6px">Consult a physician before beginning any new training or dietary program. Individual results vary based on adherence, sleep quality, and stress levels.</p>
-</div>
+        <!-- PUSH A -->
+        <div class="workout-section">
+          <div class="workout-header">
+            <span class="workout-badge badge-push">PUSH A</span
+            ><span class="workout-title">Monday - Chest Primary</span>
+          </div>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>RPE</th>
+                <th>Technique Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="compound-row">
+                <td>1</td>
+                <td>
+                  <div class="ex-name">Barbell Bench Press</div>
+                  <div class="ex-note">Compound - Primary mover</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/hWbUlkb5Ms4?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>4</td>
+                <td>4-6</td>
+                <td>3 min</td>
+                <td><span class="rpe-chip">RPE 8</span></td>
+                <td>
+                  Retract scapula, feet flat, controlled descent 2 sec, drive
+                  chest through bar
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>
+                  <div class="ex-name">Incline Dumbbell Press</div>
+                  <div class="ex-note">30-45 degree incline</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/8fXfwG4ftaQ?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>8-10</td>
+                <td>2 min</td>
+                <td><span class="rpe-chip">RPE 7-8</span></td>
+                <td>
+                  Full range of motion, elbows at ~70 degrees to body, feel
+                  upper chest stretch
+                </td>
+              </tr>
+              <tr class="compound-row">
+                <td>3</td>
+                <td>
+                  <div class="ex-name">Overhead Press (Barbell)</div>
+                  <div class="ex-note">Compound - Shoulder primary</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/zoN5EH50Dro?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>4</td>
+                <td>6-8</td>
+                <td>2.5 min</td>
+                <td><span class="rpe-chip">RPE 8</span></td>
+                <td>
+                  Brace core, slight hip lean-back at lockout, bar travels over
+                  mid-foot
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>
+                  <div class="ex-name">Cable Lateral Raises</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/xrBcuPNTxLg?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>12-15</td>
+                <td>90 sec</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Lead with elbow, slight forward lean, stop at shoulder height
+                  - no momentum
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>
+                  <div class="ex-name">Dips (Chest variation)</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/6IknX1l-XhM?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>8-12</td>
+                <td>90 sec</td>
+                <td><span class="rpe-chip">RPE 7-8</span></td>
+                <td>
+                  Lean torso forward, elbows flare slightly outward for chest
+                  emphasis
+                </td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>
+                  <div class="ex-name">Tricep Pushdown (Cable)</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/1FjkhpZsaxc?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>12-15</td>
+                <td>75 sec</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Elbows pinned to sides, full extension at bottom, 1 sec
+                  squeeze
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-</body>
+        <!-- PUSH B -->
+        <div class="workout-section">
+          <div class="workout-header">
+            <span class="workout-badge badge-push">PUSH B</span
+            ><span class="workout-title">Friday - Shoulder Primary</span>
+          </div>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>RPE</th>
+                <th>Technique Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="compound-row">
+                <td>1</td>
+                <td>
+                  <div class="ex-name">Seated Dumbbell OHP</div>
+                  <div class="ex-note">Compound - Shoulder primary</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/k6tzKisR3NY?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>4</td>
+                <td>6-8</td>
+                <td>2.5 min</td>
+                <td><span class="rpe-chip">RPE 8</span></td>
+                <td>
+                  Strict form seated, full lockout overhead, no lower back lean
+                </td>
+              </tr>
+              <tr class="compound-row">
+                <td>2</td>
+                <td>
+                  <div class="ex-name">Incline Barbell Press</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/98HWfiRonkE?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>4</td>
+                <td>6-8</td>
+                <td>2.5 min</td>
+                <td><span class="rpe-chip">RPE 7-8</span></td>
+                <td>
+                  45 degree bench angle targets upper chest, full touch at
+                  bottom
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>
+                  <div class="ex-name">Machine Chest Fly</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/a9vQ_hwIksU?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>12-15</td>
+                <td>90 sec</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Stretch position at end range, controlled return, no momentum
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>
+                  <div class="ex-name">Arnold Press</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/MTSSIWXZz1M?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>10-12</td>
+                <td>90 sec</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Rotate palms forward as pressing up, full rotation of the
+                  shoulder joint
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>
+                  <div class="ex-name">Skull Crushers (EZ Bar)</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/Q2cA5xv2rSs?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>10-12</td>
+                <td>90 sec</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Lower to forehead or behind head, keep elbows stationary
+                </td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>
+                  <div class="ex-name">Overhead Tricep Extension (Cable)</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/b5le--KkyH0?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>12-15</td>
+                <td>75 sec</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Long head stretch emphasis, elbows point up, full extension
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- PULL A -->
+        <div class="workout-section">
+          <div class="workout-header">
+            <span class="workout-badge badge-pull">PULL A</span
+            ><span class="workout-title"
+              >Tuesday - Vertical Pull + Deadlift</span
+            >
+          </div>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>RPE</th>
+                <th>Technique Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="compound-row">
+                <td>1</td>
+                <td>
+                  <div class="ex-name">Barbell Deadlift</div>
+                  <div class="ex-note">Compound - Full posterior chain</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/xNwpvDuZJ3k?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>4</td>
+                <td>3-5</td>
+                <td>3-4 min</td>
+                <td><span class="rpe-chip">RPE 8-9</span></td>
+                <td>
+                  Hip hinge, neutral spine throughout, bar over mid-foot, drive
+                  floor away on ascent
+                </td>
+              </tr>
+              <tr class="compound-row">
+                <td>2</td>
+                <td>
+                  <div class="ex-name">Weighted Pull-Ups</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/eDP_OOhMTZ4?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>4</td>
+                <td>5-8</td>
+                <td>3 min</td>
+                <td><span class="rpe-chip">RPE 8</span></td>
+                <td>
+                  Full hang at bottom, depress scapula first, chin clears bar,
+                  controlled descent
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>
+                  <div class="ex-name">Chest-Supported Row (DB or Machine)</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/FVyVvApcyZY?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>10-12</td>
+                <td>2 min</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Chest on pad eliminates lower back load, drive elbows back and
+                  squeeze
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>
+                  <div class="ex-name">Face Pulls (Cable)</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/IeOqdw9WI90?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>15-20</td>
+                <td>75 sec</td>
+                <td><span class="rpe-chip">RPE 6</span></td>
+                <td>
+                  Elbows high, external rotation at finish, shoulder health
+                  priority exercise
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>
+                  <div class="ex-name">Barbell Curl</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/54x2WF1_Suc?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>8-10</td>
+                <td>90 sec</td>
+                <td><span class="rpe-chip">RPE 7-8</span></td>
+                <td>
+                  Elbows pinned to sides, supinate fully at top, 2 sec eccentric
+                </td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>
+                  <div class="ex-name">Hammer Curls (Dumbbell)</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/lmIo_gVE8T4?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>10-12</td>
+                <td>75 sec</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Neutral grip, brachialis and brachioradialis emphasis, no
+                  swinging
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- PULL B -->
+        <div class="workout-section">
+          <div class="workout-header">
+            <span class="workout-badge badge-pull">PULL B</span
+            ><span class="workout-title"
+              >Saturday - Horizontal Pull Primary</span
+            >
+          </div>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>RPE</th>
+                <th>Technique Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="compound-row">
+                <td>1</td>
+                <td>
+                  <div class="ex-name">Barbell Row (Pendlay Style)</div>
+                  <div class="ex-note">Compound - Mid-back primary</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/tYxEGi7ir4I?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>4</td>
+                <td>5-6</td>
+                <td>3 min</td>
+                <td><span class="rpe-chip">RPE 8</span></td>
+                <td>
+                  Bar starts on floor each rep, near-horizontal torso, elbows in
+                  tight, powerful pull
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>
+                  <div class="ex-name">Lat Pulldown (Wide Grip)</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/HWGntttgJQw?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>4</td>
+                <td>8-10</td>
+                <td>2 min</td>
+                <td><span class="rpe-chip">RPE 7-8</span></td>
+                <td>
+                  Slight lean back, pull elbows down to hips, feel lat stretch
+                  at top
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>
+                  <div class="ex-name">Single-Arm Dumbbell Row</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/qN54-QNO1eQ?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>10-12/side</td>
+                <td>90 sec</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Allow shoulder blade to travel fully (protract/retract), no
+                  hip rotation
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>
+                  <div class="ex-name">Rope Pullover (Cable)</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/zokTHF8a9Z8?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>12-15</td>
+                <td>90 sec</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Straight arms, stretch lats at top, contract fully at hip
+                  level
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>
+                  <div class="ex-name">Incline Dumbbell Curl</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/XhIsIcjIbCw?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>10-12</td>
+                <td>90 sec</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>Long head stretch position, slow eccentric, no momentum</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>
+                  <div class="ex-name">Cable Rear Delt Fly</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/FeERX9UwspY?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>15-20</td>
+                <td>75 sec</td>
+                <td><span class="rpe-chip">RPE 6</span></td>
+                <td>
+                  Cross-body cable, arms nearly straight, pinch scapula at
+                  finish
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- LEGS A -->
+        <div class="workout-section">
+          <div class="workout-header">
+            <span class="workout-badge badge-legs">LEGS A</span
+            ><span class="workout-title">Wednesday - Quad Primary</span>
+          </div>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>RPE</th>
+                <th>Technique Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="compound-row">
+                <td>1</td>
+                <td>
+                  <div class="ex-name">Barbell Back Squat</div>
+                  <div class="ex-note">Compound - King of lower body</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/dW3zj79xfrc?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>4</td>
+                <td>4-6</td>
+                <td>3-4 min</td>
+                <td><span class="rpe-chip">RPE 8-9</span></td>
+                <td>
+                  Hip crease below knee, 360 degree brace, knees track toes,
+                  proud chest throughout
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>
+                  <div class="ex-name">Leg Press</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/EotSw18oR9w?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>10-12</td>
+                <td>2 min</td>
+                <td><span class="rpe-chip">RPE 7-8</span></td>
+                <td>
+                  Full range without locking out under load, feet
+                  shoulder-width, controlled descent
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>
+                  <div class="ex-name">Walking Lunges (Dumbbell)</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/6Rhchj0nCp8?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>10-12/leg</td>
+                <td>2 min</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Upright torso, rear knee touches floor lightly, drive through
+                  front heel on ascent
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>
+                  <div class="ex-name">Leg Extension</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/uM86QE59Tgc?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>12-15</td>
+                <td>90 sec</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Peak contraction hold 1 sec, controlled 3 sec lowering, VMO
+                  focus
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>
+                  <div class="ex-name">Lying Leg Curl</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/y7SKfM6Hmiw?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>10-12</td>
+                <td>90 sec</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Plantar flex at start, pull heels to glutes, avoid hip lift,
+                  slow eccentric
+                </td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>
+                  <div class="ex-name">Standing Calf Raise</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/_OewEscCsbo?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>4</td>
+                <td>15-20</td>
+                <td>75 sec</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Full stretch at bottom, 2 sec hold at top, 3 sec eccentric -
+                  calves respond to time under tension
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- LEGS B -->
+        <div class="workout-section">
+          <div class="workout-header">
+            <span class="workout-badge badge-legs">LEGS B</span
+            ><span class="workout-title">Sunday - Posterior Chain Primary</span>
+          </div>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Rest</th>
+                <th>RPE</th>
+                <th>Technique Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="compound-row">
+                <td>1</td>
+                <td>
+                  <div class="ex-name">Romanian Deadlift (RDL)</div>
+                  <div class="ex-note">
+                    Compound - Hamstring and Glute primary
+                  </div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/up0sPrYCTkI?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>4</td>
+                <td>6-8</td>
+                <td>3 min</td>
+                <td><span class="rpe-chip">RPE 8</span></td>
+                <td>
+                  Hip hinge to mid-shin, maintain neutral spine, feel hamstring
+                  stretch, squeeze glutes on ascent
+                </td>
+              </tr>
+              <tr class="compound-row">
+                <td>2</td>
+                <td>
+                  <div class="ex-name">Hip Thrust (Barbell)</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/CvuVYMFd11g?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>4</td>
+                <td>8-10</td>
+                <td>2.5 min</td>
+                <td><span class="rpe-chip">RPE 8</span></td>
+                <td>
+                  Upper back on bench, squeeze glutes hard at top, posterior
+                  pelvic tilt at lockout
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>
+                  <div class="ex-name">Bulgarian Split Squat (Dumbbell)</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/or1frhkjBDc?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>8-10/leg</td>
+                <td>2 min</td>
+                <td><span class="rpe-chip">RPE 7-8</span></td>
+                <td>
+                  Rear foot elevated, upright torso, knee tracks over toe, hip
+                  flexor stretch on rear leg
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>
+                  <div class="ex-name">Seated Leg Curl</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/NxPR7G_YNHI?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>10-12</td>
+                <td>90 sec</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Stretch position is key for hypertrophy, 3 sec eccentric
+                  lowering
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>
+                  <div class="ex-name">Cable Pull-Through</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/SbquVKT_2jg?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>3</td>
+                <td>12-15</td>
+                <td>90 sec</td>
+                <td><span class="rpe-chip">RPE 6</span></td>
+                <td>
+                  Hip hinge movement not a squat, squeeze glutes at top,
+                  maintain neutral spine
+                </td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>
+                  <div class="ex-name">Seated Calf Raise</div>
+                  <a
+                    class="ex-link"
+                    href="https://www.youtube.com/shorts/FsqE-g1C5fk?feature=share"
+                    target="_blank"
+                    ><svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="currentColor"
+                    >
+                      <polygon points="2,1 9,5 2,9" /></svg
+                    >WATCH TUTORIAL</a
+                  >
+                </td>
+                <td>4</td>
+                <td>15-20</td>
+                <td>75 sec</td>
+                <td><span class="rpe-chip">RPE 7</span></td>
+                <td>
+                  Soleus emphasis, use heavier weight than standing, full
+                  stretch required
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout">
+          <strong>Optional Cardio for Fat Loss:</strong> 3-4x/week, 20-30 min
+          Zone 2 (brisk walk, bike, or rowing at conversational pace). Best on
+          Thursday rest day or post-workout. Avoid high-intensity cardio - it
+          competes with strength adaptations and elevates cortisol, which
+          directly impairs body recomposition.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">03</span>
+          <h2 class="section-title">12-Week Progression Plan</h2>
+        </div>
+        <div class="phase-grid">
+          <div class="phase-card">
+            <div class="phase-label">Phase 1</div>
+            <div class="phase-name">Foundation &amp; Adaptation</div>
+            <div class="phase-weeks">Weeks 1-4</div>
+            <ul class="phase-list">
+              <li>Intensity: 65-75% 1RM / RPE 7</li>
+              <li>Volume: Moderate - master technique first</li>
+              <li>Compound reps: 6-8; Accessory: 10-15</li>
+              <li>Add 2.5kg when RPE stays at or below 7 for 2 sessions</li>
+              <li>Log every session: weight, reps, and RPE</li>
+              <li>Rest: 2-3 min compounds, 90 sec accessories</li>
+            </ul>
+          </div>
+          <div class="phase-card">
+            <div class="phase-label">Phase 2</div>
+            <div class="phase-name">Strength &amp; Hypertrophy</div>
+            <div class="phase-weeks">Weeks 5-8</div>
+            <ul class="phase-list">
+              <li>Intensity: 75-85% 1RM / RPE 8</li>
+              <li>Volume: Increase by 1 set per main compound</li>
+              <li>Compound reps: 4-6; Accessory: 8-12</li>
+              <li>
+                Increase 2.5-5kg when top rep range hit 2 sessions in a row
+              </li>
+              <li>Introduce 1 drop set per session on final accessory</li>
+              <li>Rest: 3 min compounds, 90-120 sec accessories</li>
+            </ul>
+          </div>
+          <div class="phase-card">
+            <div class="phase-label">Phase 3</div>
+            <div class="phase-name">Intensification &amp; Peak</div>
+            <div class="phase-weeks">Weeks 9-12</div>
+            <ul class="phase-list">
+              <li>Intensity: 80-90% 1RM / RPE 8-9</li>
+              <li>Volume: Slightly reduced sets, heavier loads</li>
+              <li>Compound reps: 3-5; Accessory: 8-10</li>
+              <li>Double progression: increase load or reps each session</li>
+              <li>Week 11: Full deload (see below)</li>
+              <li>Week 12: Test new 1RM or top rep set on key lifts</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="deload-box">
+          <div class="deload-title">Deload Protocol - Week 11</div>
+          <p style="color: var(--muted); font-size: 13.5px">
+            Reduce volume by 40-50% and load by 20%. Perform all exercises with
+            perfect technique at a controlled tempo. Do NOT skip the deload -
+            this is when your body consolidates adaptations, heals
+            micro-traumas, and resets the nervous system. On carnivore, the
+            deload week is especially powerful as systemic inflammation drops
+            sharply. Use this week to focus on sleep quality and full dietary
+            compliance.
+          </p>
+        </div>
+
+        <hr class="divider" />
+        <h3
+          style="
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            color: var(--text);
+            margin-bottom: 16px;
+          "
+        >
+          Weekly Progressive Overload Reference
+        </h3>
+        <table class="progress-table">
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Phase</th>
+              <th>RPE Target</th>
+              <th>Compound Reps</th>
+              <th>Accessory Reps</th>
+              <th>Load Change</th>
+              <th>Volume</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Foundation</td>
+              <td>6-7</td>
+              <td>6-8</td>
+              <td>12-15</td>
+              <td>Establish baselines</td>
+              <td>Moderate</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Foundation</td>
+              <td>7</td>
+              <td>6-8</td>
+              <td>12-15</td>
+              <td>+2.5kg if RPE below 7</td>
+              <td>Moderate</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Foundation</td>
+              <td>7-8</td>
+              <td>6-8</td>
+              <td>10-12</td>
+              <td>+2.5kg/compound</td>
+              <td>Moderate</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Foundation</td>
+              <td>7-8</td>
+              <td>6-8</td>
+              <td>10-12</td>
+              <td>+2.5kg/compound</td>
+              <td>Moderate</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Strength</td>
+              <td>8</td>
+              <td>5-7</td>
+              <td>10-12</td>
+              <td>+2.5-5kg</td>
+              <td>+1 set added</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Strength</td>
+              <td>8</td>
+              <td>5-7</td>
+              <td>8-12</td>
+              <td>+2.5-5kg</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Strength</td>
+              <td>8-9</td>
+              <td>4-6</td>
+              <td>8-10</td>
+              <td>+2.5-5kg</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>Strength</td>
+              <td>8-9</td>
+              <td>4-6</td>
+              <td>8-10</td>
+              <td>+2.5-5kg</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>Intensification</td>
+              <td>8-9</td>
+              <td>3-5</td>
+              <td>8-10</td>
+              <td>+5kg compounds</td>
+              <td>Moderate-High</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>Intensification</td>
+              <td>8-9</td>
+              <td>3-5</td>
+              <td>8-10</td>
+              <td>+5kg compounds</td>
+              <td>Moderate-High</td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>DELOAD</td>
+              <td>5-6</td>
+              <td>6-8</td>
+              <td>12-15</td>
+              <td>-20% load</td>
+              <td>-40-50% volume</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>Peak / Test</td>
+              <td>9-10</td>
+              <td>1-3 (PR attempt)</td>
+              <td>8-10</td>
+              <td>Max effort</td>
+              <td>Low volume</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">04</span>
+          <h2 class="section-title">Carnivore Nutrition Strategy</h2>
+        </div>
+        <div class="macro-row">
+          <div class="macro-card">
+            <div class="macro-val">2,400</div>
+            <div class="macro-unit">kcal/day</div>
+            <div class="macro-name">Calorie Target</div>
+            <div class="macro-note">
+              300-400 kcal deficit for fat loss with muscle retention. Adjust
+              plus or minus 100 kcal based on weekly weight trend.
+            </div>
+          </div>
+          <div class="macro-card">
+            <div class="macro-val">~180</div>
+            <div class="macro-unit">g/day</div>
+            <div class="macro-name">Protein Target</div>
+            <div class="macro-note">
+              2.2g per kg bodyweight. Non-negotiable floor for muscle
+              preservation in a caloric deficit.
+            </div>
+          </div>
+          <div class="macro-card">
+            <div class="macro-val">~155</div>
+            <div class="macro-unit">g/day</div>
+            <div class="macro-name">Fat Target</div>
+            <div class="macro-note">
+              Primary fuel source. Adjust higher on rest days, slightly lower on
+              heavy training days if needed.
+            </div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>Carbohydrate target: 0-5g/day</strong> (trace amounts from
+          organ meats only). This maintains a fat-adapted metabolic state,
+          enhancing lipolysis and insulin sensitivity - both critical for body
+          recomposition at age 34.
+        </div>
+        <div class="callout">
+          <strong>Why carnivore accelerates recomp:</strong> Elimination of
+          processed foods and plant antigens reduces systemic inflammation. High
+          satiety per calorie from protein and fat prevents overeating without
+          tracking. Ketosis improves insulin sensitivity and fat oxidation.
+          Complete amino acid profiles from animal foods maximize muscle protein
+          synthesis at every meal.
+        </div>
+
+        <div style="margin-top: 28px">
+          <h3
+            style="
+              font-family: 'Bebas Neue', sans-serif;
+              font-size: 24px;
+              color: var(--text);
+              margin-bottom: 16px;
+            "
+          >
+            Approved Food List
+          </h3>
+          <div class="phase-grid">
+            <div class="phase-card">
+              <div class="phase-label">Muscle Meats</div>
+              <div class="phase-name">Primary Proteins</div>
+              <ul class="phase-list">
+                <li>Beef ribeye steak (highest nutrient density)</li>
+                <li>Ground beef 80/20 (fat and protein balance)</li>
+                <li>NY strip, sirloin, chuck roast</li>
+                <li>Lamb shoulder, rack of lamb, leg</li>
+                <li>Pork belly, pork shoulder</li>
+                <li>Chicken thighs skin-on or breast</li>
+                <li>Whole eggs (6-8 per day, most versatile food)</li>
+              </ul>
+            </div>
+            <div class="phase-card">
+              <div class="phase-label">Organ Meats</div>
+              <div class="phase-name">Nutrient Powerhouses</div>
+              <ul class="phase-list">
+                <li>Beef liver (2-3x/week) - B12, folate, iron</li>
+                <li>Beef kidney - CoQ10, selenium</li>
+                <li>Beef heart - CoQ10, taurine, zinc</li>
+                <li>Bone marrow - fat-soluble vitamins A/D/K2</li>
+                <li>Beef tongue - fatty and calorie dense</li>
+                <li>Chicken liver (milder flavor, easier entry)</li>
+              </ul>
+            </div>
+            <div class="phase-card">
+              <div class="phase-label">Fish and Seafood</div>
+              <div class="phase-name">Omega-3 Sources</div>
+              <ul class="phase-list">
+                <li>Salmon (fattier cuts are better on carnivore)</li>
+                <li>Sardines whole (highest omega-3 per gram)</li>
+                <li>Mackerel - exceptional omega-3 density</li>
+                <li>Shrimp - lean protein, rich in iodine</li>
+                <li>Tuna (moderate frequency due to mercury)</li>
+                <li>Oysters (1-2x/week) - zinc, copper, selenium</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 28px">
+          <h3
+            style="
+              font-family: 'Bebas Neue', sans-serif;
+              font-size: 24px;
+              color: var(--text);
+              margin-bottom: 8px;
+            "
+          >
+            Electrolyte Strategy - Whole Foods Only
+          </h3>
+          <p
+            style="color: var(--muted); font-size: 13.5px; margin-bottom: 12px"
+          >
+            On carnivore, low insulin causes kidneys to excrete sodium,
+            potassium, and magnesium at higher rates. Deficiency causes fatigue,
+            cramps, and brain fog often mistaken for adaptation problems.
+          </p>
+          <div class="elec-grid">
+            <div class="elec-card">
+              <div class="elec-name">Sodium — 2,000-4,000mg/day</div>
+              <div class="elec-source">
+                Salt all meat liberally. Use pink Himalayan or sea salt on every
+                meal. Homemade bone broth is excellent. Do not fear salt on
+                carnivore.
+              </div>
+            </div>
+            <div class="elec-card">
+              <div class="elec-name">Potassium — 3,000-4,700mg/day</div>
+              <div class="elec-source">
+                Ribeye steak, salmon, sardines, and beef heart are all high in
+                potassium. Eating 600-700g of meat daily covers this naturally.
+              </div>
+            </div>
+            <div class="elec-card">
+              <div class="elec-name">Magnesium — 300-400mg/day</div>
+              <div class="elec-source">
+                Beef liver, mackerel, and oysters are the best whole-food
+                sources. Prioritize seafood 3-4x per week to cover this without
+                supplements.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="callout" style="margin-top: 20px">
+          <strong>Hydration:</strong> Target 3-4 litres of water per day.
+          Carnivore is naturally diuretic so drink to thirst plus an extra
+          500ml. Morning: 500ml water with a generous pinch of salt before
+          training. Bone broth (1-2 cups per day) is ideal for hydration,
+          electrolytes, and collagen for joint health.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">05</span>
+          <h2 class="section-title">Sample Daily Meal Plan</h2>
+        </div>
+        <div class="callout">
+          <strong>Training Day Template</strong> — approximately 2,400 kcal,
+          180g protein, 155g fat
+        </div>
+        <div class="meal-grid">
+          <div class="meal-card">
+            <div class="meal-num">Meal 01 — 7:00 AM</div>
+            <div class="meal-title">Pre-Training Meal</div>
+            <ul class="meal-items">
+              <li>4 whole eggs scrambled in butter</li>
+              <li>200g ground beef 80/20 pan-cooked</li>
+              <li>20g butter for cooking</li>
+              <li>Himalayan salt generously</li>
+              <li>500ml water with pinch of salt</li>
+            </ul>
+            <div class="meal-cals">
+              ~700 kcal &middot; ~60g protein &middot; ~52g fat
+            </div>
+          </div>
+          <div class="meal-card">
+            <div class="meal-num">Meal 02 — 12:30 PM</div>
+            <div class="meal-title">Post-Workout Meal</div>
+            <ul class="meal-items">
+              <li>350g ribeye steak (cooked weight ~280g)</li>
+              <li>2 whole eggs soft boiled</li>
+              <li>Tallow or steak drippings for fat</li>
+              <li>1 cup homemade bone broth</li>
+              <li>Sea salt to taste</li>
+            </ul>
+            <div class="meal-cals">
+              ~850 kcal &middot; ~75g protein &middot; ~60g fat
+            </div>
+          </div>
+          <div class="meal-card">
+            <div class="meal-num">Meal 03 — 6:30 PM</div>
+            <div class="meal-title">Dinner — Organ Focus</div>
+            <ul class="meal-items">
+              <li>150g beef liver pan-fried in butter</li>
+              <li>200g salmon fillet baked or pan-seared</li>
+              <li>20g butter on liver</li>
+              <li>Salt and optional dried herbs</li>
+              <li>1 cup bone broth</li>
+            </ul>
+            <div class="meal-cals">
+              ~750 kcal &middot; ~80g protein &middot; ~48g fat
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 16px">
+          <div class="meal-card" style="max-width: 420px">
+            <div class="meal-num">Optional — 9:00 PM</div>
+            <div class="meal-title">
+              Evening Snack (only if genuinely hungry)
+            </div>
+            <ul class="meal-items">
+              <li>3-4 whole eggs hard boiled</li>
+              <li>30g beef jerky (no sugar added)</li>
+            </ul>
+            <div class="meal-cals">
+              ~300 kcal &middot; ~28g protein &middot; ~18g fat
+            </div>
+          </div>
+        </div>
+        <div class="callout" style="margin-top: 16px">
+          <strong>Rest Day Template:</strong> Keep protein the same at 180g.
+          Reduce fat by 20-30g by using less butter and tallow. Total calories
+          drop to approximately 2,100-2,200 — creating a slightly deeper deficit
+          on non-training days is a natural and effective body recomposition
+          strategy.
+        </div>
+
+        <div style="margin-top: 32px">
+          <h3
+            style="
+              font-family: 'Bebas Neue', sans-serif;
+              font-size: 24px;
+              color: var(--text);
+              margin-bottom: 16px;
+            "
+          >
+            Weekly Food Rotation
+          </h3>
+          <div class="rotation-grid">
+            <div class="rot-day">
+              <div class="rot-day-name">MON</div>
+              <div class="rot-item">Ribeye steak</div>
+              <div class="rot-item">Ground beef</div>
+              <div class="rot-item">Eggs</div>
+            </div>
+            <div class="rot-day">
+              <div class="rot-day-name">TUE</div>
+              <div class="rot-item">Salmon</div>
+              <div class="rot-item">Beef liver</div>
+              <div class="rot-item">Eggs</div>
+            </div>
+            <div class="rot-day">
+              <div class="rot-day-name">WED</div>
+              <div class="rot-item">Lamb shoulder</div>
+              <div class="rot-item">Sardines</div>
+              <div class="rot-item">Eggs</div>
+            </div>
+            <div class="rot-day">
+              <div class="rot-day-name">THU</div>
+              <div class="rot-item">NY Strip</div>
+              <div class="rot-item">Beef heart</div>
+              <div class="rot-item">Eggs</div>
+            </div>
+            <div class="rot-day">
+              <div class="rot-day-name">FRI</div>
+              <div class="rot-item">Pork belly</div>
+              <div class="rot-item">Mackerel</div>
+              <div class="rot-item">Eggs</div>
+            </div>
+            <div class="rot-day">
+              <div class="rot-day-name">SAT</div>
+              <div class="rot-item">Chuck roast</div>
+              <div class="rot-item">Beef kidney</div>
+              <div class="rot-item">Shrimp</div>
+            </div>
+            <div class="rot-day">
+              <div class="rot-day-name">SUN</div>
+              <div class="rot-item">Bone marrow</div>
+              <div class="rot-item">Chicken thighs</div>
+              <div class="rot-item">Oysters</div>
+            </div>
+          </div>
+          <p style="color: var(--muted); font-size: 12px; margin-top: 8px">
+            Rotation prevents nutrient gaps and palate fatigue. Eggs appear
+            daily as the most complete, affordable, and versatile whole food
+            available.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">06</span>
+          <h2 class="section-title">Dirty to Strict Carnivore Transition</h2>
+        </div>
+        <p style="color: var(--muted); margin-bottom: 28px; font-size: 14px">
+          A gradual transition prevents GI distress, cravings, and adaptation
+          fatigue. The 12-week training plan aligns with progressive dietary
+          strictness so both training and nutrition peak together.
+        </p>
+        <div class="transition-steps">
+          <div class="t-step">
+            <div class="t-step-num">1</div>
+            <div class="t-step-body">
+              <div class="t-step-title">
+                Weeks 1-2: Remove the Worst Offenders
+              </div>
+              <div class="t-step-text">
+                Eliminate all processed junk, seed oils (canola, sunflower,
+                soybean), refined sugars, packaged snacks, and fast food. You
+                can still have coffee, dairy (butter, cheese, heavy cream), and
+                minor condiments. Increase meat and egg portions to replace
+                eliminated calories. Target 80%+ of calories from animal foods
+                this fortnight.
+              </div>
+            </div>
+          </div>
+          <div class="t-step">
+            <div class="t-step-num">2</div>
+            <div class="t-step-body">
+              <div class="t-step-title">
+                Weeks 3-4: Plant Food Reduction Phase
+              </div>
+              <div class="t-step-text">
+                Begin removing plant foods systematically. Start with grains,
+                legumes, and high-oxalate vegetables (spinach, almonds,
+                chocolate). If eating salads or cooked vegetables, reduce to 10%
+                of each meal then eliminate by end of Week 4. Keep fermented
+                dairy if gut health requires transition support. Monitor energy,
+                sleep, and gym performance - these should stabilize or improve.
+              </div>
+            </div>
+          </div>
+          <div class="t-step">
+            <div class="t-step-num">3</div>
+            <div class="t-step-body">
+              <div class="t-step-title">Weeks 5-6: Dairy Evaluation Phase</div>
+              <div class="t-step-text">
+                Remove all dairy except butter, which is nearly pure fat with
+                minimal protein and casein. Evaluate whether heavy cream or
+                cheese was causing bloating or stalled fat loss. Many people
+                perform best with butter only. If fat loss is progressing and
+                performance is strong, small amounts of hard cheese (aged
+                cheddar, parmesan) can remain temporarily.
+              </div>
+            </div>
+          </div>
+          <div class="t-step">
+            <div class="t-step-num">4</div>
+            <div class="t-step-body">
+              <div class="t-step-title">
+                Weeks 7-8: Coffee Elimination Phase
+              </div>
+              <div class="t-step-text">
+                Coffee is a plant-derived compound - strict carnivore excludes
+                it. Begin tapering from Weeks 7-8. Reduce gradually: 2 cups to 1
+                cup to half a cup to none over 2 weeks. This prevents caffeine
+                withdrawal headaches from disrupting training. If energy remains
+                stable without coffee, you have achieved full fat-adaptation. If
+                pre-workout performance drops sharply, keep 1 black coffee
+                before training temporarily.
+              </div>
+            </div>
+          </div>
+          <div class="t-step">
+            <div class="t-step-num">5</div>
+            <div class="t-step-body">
+              <div class="t-step-title">Weeks 9-12: Full Strict Carnivore</div>
+              <div class="t-step-text">
+                Diet consists exclusively of meat, fish, eggs, animal fats,
+                organ meats, water, and salt. This is when the deepest metabolic
+                benefits compound - anti-inflammatory cascade, peak insulin
+                sensitivity, maximum fat oxidation. Your body is fully
+                fat-adapted and using fatty acids as the primary fuel for both
+                daily life and training. Performance should be stable and
+                strength should be increasing week over week.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>Managing the Carnivore Adaptation Period (Weeks 1-3):</strong>
+          Expect 3-10 days of fatigue, brain fog, or mild headaches as
+          metabolism switches from glucose to fat. Combat this by: salting all
+          food aggressively, drinking bone broth daily, increasing fat content
+          in meals (ribeye over chicken breast), and sleeping an extra 30-60
+          minutes per night. This is temporary and is a sign of metabolic
+          transition, not a problem with the approach.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">07</span>
+          <h2 class="section-title">Recovery and Lifestyle</h2>
+        </div>
+        <div class="rec-grid">
+          <div class="rec-card">
+            <div class="rec-icon">🌙</div>
+            <div class="rec-title">Sleep Protocol</div>
+            <ul class="rec-list">
+              <li>
+                Target 7.5-9 hours of sleep - muscle growth happens here, not in
+                the gym
+              </li>
+              <li>
+                Consistent bed and wake time within 30 minutes, 7 days per week
+              </li>
+              <li>
+                Room temperature 18-20 degrees Celsius for deeper sleep
+                architecture
+              </li>
+              <li>
+                No screens 60 minutes before bed - blue light suppresses
+                melatonin
+              </li>
+              <li>
+                Last meal 2-3 hours before sleep to optimize growth hormone
+                release
+              </li>
+              <li>
+                Carnivore advantage: tryptophan and glycine from meat are
+                natural sleep aids
+              </li>
+            </ul>
+          </div>
+          <div class="rec-card">
+            <div class="rec-icon">🔁</div>
+            <div class="rec-title">Active Recovery and Mobility</div>
+            <ul class="rec-list">
+              <li>
+                Thursday: 20-30 min easy walk Zone 1-2 - do not skip this
+                session
+              </li>
+              <li>
+                Daily: 5-10 min hip flexor and thoracic spine mobility
+                (cumulative benefit)
+              </li>
+              <li>
+                Post-leg day: 2 min pigeon pose per side and 2 min couch stretch
+                per side
+              </li>
+              <li>
+                Post-push day: 2 min doorway chest stretch and pec minor release
+              </li>
+              <li>
+                Post-pull day: 2 min lat stretch overhead and shoulder
+                cross-body stretch
+              </li>
+              <li>
+                Weekly: 10 min foam roll on quads, thoracic spine, and lats
+              </li>
+            </ul>
+          </div>
+          <div class="rec-card">
+            <div class="rec-icon">🥩</div>
+            <div class="rec-title">Training on Carnivore — Key Tips</div>
+            <ul class="rec-list">
+              <li>
+                Train 2-3 hours after your first meat meal, not fully fasted in
+                early weeks
+              </li>
+              <li>
+                If energy is low in Weeks 1-3, add extra butter or tallow to
+                pre-workout meal
+              </li>
+              <li>
+                Fat adaptation completes around Week 4-6 and energy becomes rock
+                solid
+              </li>
+              <li>
+                Do not measure peak performance in Weeks 1-3 during transition
+              </li>
+              <li>
+                Post-workout: prioritize protein within 90 minutes - steak or
+                ground beef
+              </li>
+              <li>
+                Expect a 1-2 week strength stall at fat-adaptation then a strong
+                rebound
+              </li>
+            </ul>
+          </div>
+          <div class="rec-card">
+            <div class="rec-icon">🛡️</div>
+            <div class="rec-title">Injury Prevention</div>
+            <ul class="rec-list">
+              <li>
+                Always perform 2 warm-up sets before first working set on
+                compound lifts
+              </li>
+              <li>
+                Never skip the 10 minute warm-up routine - this is
+                non-negotiable
+              </li>
+              <li>
+                For knees: terminal knee extensions before every squat and leg
+                day
+              </li>
+              <li>
+                For shoulders: band pull-aparts 3 sets of 20 before every push
+                session
+              </li>
+              <li>
+                For lower back: hip hinge practice with light load before every
+                deadlift session
+              </li>
+              <li>
+                If joint pain occurs: reduce load 20%, address technique, add
+                face pulls daily
+              </li>
+            </ul>
+          </div>
+          <div class="rec-card">
+            <div class="rec-icon">📊</div>
+            <div class="rec-title">Progress Tracking</div>
+            <ul class="rec-list">
+              <li>
+                Weigh 3x per week (Monday, Wednesday, Friday) morning post-void
+              </li>
+              <li>
+                Use 7-day rolling average - daily fluctuations on carnivore are
+                significant
+              </li>
+              <li>
+                Take progress photos every 2 weeks in same lighting at same time
+                of day
+              </li>
+              <li>
+                Track every session in a training log - this is required for
+                progressive overload
+              </li>
+              <li>
+                Target rate: 0.5-1% bodyweight per week loss (0.4-0.8kg per week
+                at 82kg)
+              </li>
+              <li>
+                Losing more than 1kg per week: add 200 kcal per day from fat
+                sources
+              </li>
+            </ul>
+          </div>
+          <div class="rec-card">
+            <div class="rec-icon">⚡</div>
+            <div class="rec-title">Metabolic Health Optimization</div>
+            <ul class="rec-list">
+              <li>
+                Morning sunlight: 5-10 minutes outdoor exposure to reset
+                cortisol rhythm
+              </li>
+              <li>
+                Stress management: chronic cortisol directly opposes body
+                recomposition goals
+              </li>
+              <li>
+                Cold exposure optional: cold shower post-training reduces
+                delayed onset muscle soreness
+              </li>
+              <li>
+                Eliminate alcohol entirely - it suppresses testosterone and
+                severely disrupts sleep
+              </li>
+              <li>
+                Intermittent fasting optional: 16:8 eating window pairs
+                naturally with carnivore
+              </li>
+              <li>
+                Organ meats naturally support liver function, the central hub of
+                metabolic health
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top: 28px">
+          <strong>Realistic Recomposition Expectations at 34:</strong> As an
+          intermediate lifter following this program, expect 1-2 kg of lean
+          muscle gain and 4-6 kg of fat loss over 12 weeks. These are
+          conservative, sustainable, and real numbers based on what physiology
+          supports. The combination of PPL training with progressive overload,
+          high-protein carnivore nutrition, and prioritized sleep and recovery
+          is one of the most evidence-supported approaches for simultaneous fat
+          loss and muscle gain at your age and experience level. Trust the
+          process, log everything, and stay consistent.
+        </div>
+      </div>
+    </div>
+
+    <div
+      style="
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        padding: 24px 40px;
+        text-align: center;
+      "
+    >
+      <p
+        style="
+          font-family: 'DM Mono', monospace;
+          font-size: 11px;
+          color: var(--muted);
+          letter-spacing: 2px;
+        "
+      >
+        PERSONALIZED 12-WEEK PROTOCOL &middot; PUSH / PULL / LEGS &middot;
+        CARNIVORE NUTRITION &middot; PROGRESSIVE OVERLOAD
+      </p>
+      <p style="font-size: 12px; color: var(--muted); margin-top: 6px">
+        Consult a physician before beginning any new training or dietary
+        program. Individual results vary based on adherence, sleep quality, and
+        stress levels.
+      </p>
+    </div>
+  </body>
 </html>
